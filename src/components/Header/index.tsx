@@ -3,14 +3,14 @@ import { styles } from "./style";
 import { ReactNode } from "react";
 
 type Props = {
-    children: ReactNode
+    tintColor: string | undefined
 }
 
-export default function Header({ children, ...props }: Props) {
+export default function Header({ tintColor }: Props) {
     return (
-        <View style={styles.container} {...props}>
+        <View style={styles.container}>
             <Image style={{ width: 30, height: 30 }} source={require('../../../assets/bicycle-wheel.png')} />
-            <Text style={{ color: 'white', fontWeight: '900' }}>MORNRIDE</Text>
+            <Text style={{ color: tintColor, fontWeight: '500', fontSize: 18 }}>MORNRIDE</Text>
         </View>
     )
 }

@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-evenly',
+        alignItems: 'center',
         paddingHorizontal: 10,
         paddingVertical: 20,
         backgroundColor: '#161616',
@@ -24,6 +25,7 @@ const styles = StyleSheet.create({
     onBoardBicycleImage: {
         marginTop: 90,
         width: windowWidth - 10,
+        left: 70,
         height: windowWidth - 10,
         zIndex: 2,
     },

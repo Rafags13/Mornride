@@ -1,8 +1,15 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import styles from "./style";
 import Header from "../../components/Header";
+import { useNavigation } from "@react-navigation/native";
+import Button from "../../components/Button";
 
 export default function OnBoard() {
+    const navigation = useNavigation<any>();
+    function onNavigateToHome() {
+        navigation.navigate('bikeTab');
+    }
+
     return (
         <View style={styles.container}>
             <View>
@@ -16,11 +23,7 @@ export default function OnBoard() {
                     Keep healthy ride everyday everywhere with Mornride Bike product.
                     Login and get some produt of Mornride!
                 </Text>
-                <TouchableOpacity
-                    activeOpacity={0.5}
-                    style={styles.buttonJoin}>
-                    <Text style={styles.buttonText}>Get started</Text>
-                </TouchableOpacity>
+                <Button onClick={onNavigateToHome} />
             </View>
         </View>
     )
