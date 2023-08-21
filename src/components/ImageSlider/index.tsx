@@ -1,0 +1,88 @@
+import { MotiView } from "moti"
+import { useState } from "react";
+import { ImageBackground, NativeScrollEvent, NativeSyntheticEvent, View, useWindowDimensions } from "react-native"
+import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
+import styles from "./style";
+
+type Props = {
+    images: any[]
+}
+
+export default function ImageSlider({ images }: Props) {
+    const { width } = useWindowDimensions();
+    const size = width * 0.8;
+    const x = useSharedValue(0);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    const onScroll = useAnimatedScrollHandler({
+        onScroll: event => {
+            x.value = event.contentOffset.x;
+        }
+    })
+    function getCurrentIndex(event: NativeSyntheticEvent<NativeScrollEvent>) {
+        const index = Math.round(event.nativeEvent.contentOffset.x / width);
+        if (index !== currentIndex)
+            setCurrentIndex(index)
+    }
+    return (
+        <View>
+
+            <View style={styles.currentPaginationIndexContainer}>
+
+                <MotiView animate={{
+                    backgroundColor: currentIndex === 0 ? '#333333' : '#C4C4C4',
+                    opacity: currentIndex === 0 ? 1 : 0.5
+                }}
+                    style={styles.defaultImageIndex} />
+                <MotiView
+                    animate={{
+                        backgroundColor: currentIndex === 1 ? '#333333' : '#C4C4C4',
+                        opacity: currentIndex === 1 ? 1 : 0.5
+                    }}
+                    style={styles.defaultImageIndex} />
+                <MotiView
+                    animate={{
+                        backgroundColor: currentIndex === 2 ? '#333333' : '#C4C4C4',
+                        opacity: currentIndex === 2 ? 1 : 0.5
+                    }}
+                    style={styles.defaultImageIndex} />
+            </View>
+
+            <Animated.ScrollView
+                horizontal
+                bounces={false}
+                showsHorizontalScrollIndicator={false}
+                snapToInterval={size}
+                scrollEventThrottle={16}
+
+                onScroll={onScroll}
+                onMomentumScrollEnd={getCurrentIndex}
+                style={{ height: 200 }}>
+                {
+                    images.map((image, key) => {
+
+                        return (
+                            <ImageBackground
+                                source={image.image}
+                                key={key}
+                                style={{
+                                    marginLeft: key === 0 ? 20 : 10,
+                                    marginRight: key === images.length - 1 ? 20 : 10,
+                                    width: size,
+                                    borderRadius: 20,
+                                    height: 200,
+                                    backgroundColor: '#010101',
+                                }}
+
+                                imageStyle={{ opacity: 0.75, borderRadius: 20, }}
+                            >
+                                {/* <Text>hellow</Text> */}
+                            </ImageBackground>
+                        )
+                    }
+                    )
+                }
+            </Animated.ScrollView>
+        </View>
+    )
+}
