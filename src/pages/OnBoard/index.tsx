@@ -23,7 +23,7 @@ export default function OnBoard() {
                     Keep healthy ride everyday everywhere with Mornride Bike product.
                     Login and get some produt of Mornride!
                 </Text>
-                <Button onClick={onNavigateToHome} />
+                <Button onClick={onNavigateToHome} label={"Get started"} />
             </View>
         </View>
     )

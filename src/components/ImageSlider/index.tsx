@@ -1,11 +1,11 @@
 import { MotiView } from "moti"
 import { useState } from "react";
-import { ImageBackground, NativeScrollEvent, NativeSyntheticEvent, View, useWindowDimensions } from "react-native"
+import { ImageBackground, NativeScrollEvent, NativeSyntheticEvent, View, useWindowDimensions, Text } from "react-native"
 import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
 import styles from "./style";
 
 type Props = {
-    images: any[]
+    images: any[],
 }
 
 export default function ImageSlider({ images }: Props) {
@@ -76,13 +76,16 @@ export default function ImageSlider({ images }: Props) {
 
                                 imageStyle={{ opacity: 0.75, borderRadius: 20, }}
                             >
-                                {/* <Text>hellow</Text> */}
+                                <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'space-between', padding: 10, gap: 10, flexDirection: 'row', }}>
+                                    <Text style={{ width: (size / 2), color: 'white', fontWeight: '700', fontStyle: 'italic', fontSize: 18 }}>{image.description}</Text>
+                                    {image.button}
+                                </View>
                             </ImageBackground>
                         )
                     }
                     )
                 }
             </Animated.ScrollView>
-        </View>
+        </View >
     )
 }
