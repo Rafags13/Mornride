@@ -1,6 +1,7 @@
-import { View, Text, FlatList } from 'react-native'
-import React, { memo, useState } from 'react'
+import { FlatList } from 'react-native'
+import React, { memo, useRef, useState } from 'react'
 import FilterButton, { FilterProps } from '../FilterButton'
+import styles from './style'
 
 type Props = {
     filters: FilterProps[]
@@ -8,13 +9,16 @@ type Props = {
 
 const ListFilterButton = (function ListFilterButton({ filters }: Props) {
     const [currentIndexActivated, setCurrentIndexActivated] = useState(0);
+    const flatlistRef = useRef<FlatList>(null);
 
     return (
         <FlatList
             data={filters}
             horizontal
-            contentContainerStyle={{ gap: 10 }}
-            style={{ paddingVertical: 10, marginHorizontal: 20 }}
+            initialScrollIndex={currentIndexActivated}
+            contentContainerStyle={styles.contentContainer}
+            style={styles.flatlist}
+            ref={flatlistRef}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
                 return (
@@ -23,7 +27,10 @@ const ListFilterButton = (function ListFilterButton({ filters }: Props) {
                         label={item.label}
                         option={item.option}
                         activated={currentIndexActivated === index}
-                        setActivated={() => { setCurrentIndexActivated(index) }}
+                        setActivated={() => {
+                            setCurrentIndexActivated(index);
+                            flatlistRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5 })
+                        }}
                     />
                 )
             }}
