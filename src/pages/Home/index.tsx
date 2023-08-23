@@ -1,7 +1,9 @@
-import { View } from "react-native";
+import { TouchableOpacity, View, Text, ScrollView } from "react-native";
 
 import ImageSlider from "../../components/ImageSlider";
 import Button from "../../components/Button";
+import FilterButton, { FilterProps } from "../../components/FilterButton";
+import ListFilterButton from "../../components/ListFilterButton";
 
 const images = [
     {
@@ -21,11 +23,39 @@ const images = [
     },
 ]
 
+const labelsFilter: FilterProps[] = [
+    {
+        label: 'All',
+        option: ''
+    },
+    {
+        label: 'E-Series',
+        option: 'eletronic'
+    },
+    {
+        label: 'Mountain Bike',
+        option: 'mountain'
+    },
+    {
+        label: 'Parts',
+        option: 'parts'
+    },
+    {
+        label: 'Ergonomic Bikes',
+        option: 'ergonomic'
+    },
+    {
+        label: 'Kids',
+        option: 'kid'
+    },
+]
+
 export default function Home() {
     return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <ScrollView style={{ backgroundColor: 'white' }}>
             <ImageSlider images={images} />
 
-        </View >
+            <ListFilterButton filters={labelsFilter} />
+        </ScrollView >
     )
 }
