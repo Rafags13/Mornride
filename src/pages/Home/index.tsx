@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ImageBackground, Image, TouchableOpacity, ImageSourcePropType } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 import ImageSlider from "../../components/ImageSlider";
 import Button from "../../components/Button";
@@ -7,18 +7,11 @@ import ListFilterButton from "../../components/ListFilterButton";
 import { globalStyles } from "../../util/styles/global";
 
 import {
-    setHours,
-    setMinutes,
-    setSeconds,
     set
 } from 'date-fns';
 import ClockSale from "../../components/ClockSale";
 import Link from "../../components/Link";
 import { useNavigation } from "@react-navigation/native";
-import BikeCard from "../../components/BikeCard";
-import FavoriteButton from "../../components/FavoriteButton";
-import BikeImage from "../../components/BikeImage";
-import AvaliableColors from "../../components/AvaliableColors";
 import { CardProps } from "../../util/model/CardProps";
 import SaleBikesList from "../../components/SaleBikesList";
 

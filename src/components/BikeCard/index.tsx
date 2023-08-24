@@ -1,9 +1,6 @@
 import { TouchableOpacity, Image, ImageSourcePropType, View, Text } from "react-native";
-import AntDesign from '@expo/vector-icons/AntDesign';
 import styles from "./style";
-import FavoriteButton from "../FavoriteButton";
 import { ReactNode } from "react";
-import ChangeColor from "../ChangeColor";
 
 type Props = {
     favoriteButton: ReactNode,

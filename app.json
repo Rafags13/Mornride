@@ -33,6 +33,12 @@
         "projectId": "557c97d4-2431-4976-8ee5-777b2e122867"
       }
     },
-    "owner": "hipona"
+    "owner": "hipona",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/557c97d4-2431-4976-8ee5-777b2e122867"
+    }
   }
 }
