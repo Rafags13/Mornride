@@ -5,7 +5,6 @@ const styles = StyleSheet.create({
         gap: 10,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 10
     },
     flatlist: {
         paddingVertical: 10,

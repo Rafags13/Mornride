@@ -8,6 +8,8 @@ type Props = {
     images: any[],
 }
 
+const { ScrollView } = Animated;
+
 export default function ImageSlider({ images }: Props) {
     const { width } = useWindowDimensions();
     const size = width * 0.8;
@@ -48,13 +50,13 @@ export default function ImageSlider({ images }: Props) {
                     style={styles.defaultImageIndex} />
             </View>
 
-            <Animated.ScrollView
+            <ScrollView
                 horizontal
                 bounces={false}
                 showsHorizontalScrollIndicator={false}
                 snapToInterval={size}
-                scrollEventThrottle={16}
-
+                scrollEventThrottle={18}
+                contentContainerStyle={{ gap: 20 }}
                 onScroll={onScroll}
                 onMomentumScrollEnd={getCurrentIndex}
                 style={{ height: 200 }}>
@@ -66,8 +68,8 @@ export default function ImageSlider({ images }: Props) {
                                 source={image.image}
                                 key={key}
                                 style={{
-                                    marginLeft: key === 0 ? 20 : 10,
-                                    marginRight: key === images.length - 1 ? 20 : 10,
+                                    marginLeft: key === 0 ? 10 : 0,
+                                    marginRight: key === images.length - 1 ? 10 : 0,
                                     width: size,
                                     borderRadius: 20,
                                     height: 200,
@@ -85,7 +87,7 @@ export default function ImageSlider({ images }: Props) {
                     }
                     )
                 }
-            </Animated.ScrollView>
+            </ScrollView>
         </View >
     )
 }
