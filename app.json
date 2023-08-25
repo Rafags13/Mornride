@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Mornride",
-    "slug": "Mornride",
+    "slug": "mornride",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,30 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hipona.mornride"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.hipona.mornride"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "557c97d4-2431-4976-8ee5-777b2e122867"
+      }
+    },
+    "owner": "hipona",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/557c97d4-2431-4976-8ee5-777b2e122867"
     }
   }
 }
