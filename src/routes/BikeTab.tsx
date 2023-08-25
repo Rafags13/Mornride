@@ -1,5 +1,8 @@
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Fontisto from '@expo/vector-icons/Fontisto';
 import {
     AnimatedTabBarNavigator,
     DotSize,
@@ -9,7 +12,11 @@ import {
 import Home from '../pages/Home';
 import BikeSpecification from '../pages/BikeSpecifications';
 
+import Cart from '../pages/Cart';
+
 const Tab = AnimatedTabBarNavigator();
+
+const ICON_TAB_SIZE = 16;
 
 export default function BikeTab() {
     return (
@@ -22,7 +29,7 @@ export default function BikeTab() {
             appearance={{
                 shadow: true,
                 floating: true,
-                whenActiveShow: TabElementDisplayOptions.BOTH,
+                whenActiveShow: TabElementDisplayOptions.ICON_ONLY,
                 dotSize: DotSize.SMALL,
                 tabBarBackground: 'black',
             }}
@@ -37,7 +44,7 @@ export default function BikeTab() {
                     tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
                         <Ionicons
                             name="home"
-                            size={size ? size : 24}
+                            size={ICON_TAB_SIZE}
                             color={focused ? color : 'white'}
                         />
                     ),
@@ -46,20 +53,89 @@ export default function BikeTab() {
 
             />
 
-            {/* <Tab.Screen
-                name="bikeSpecifications"
-                component={BikeSpecification}
+            <Tab.Screen
+                name="cart"
+                component={Cart}
                 options={{
-                    tabBarIcon: (focused, color, size) => (
-                        <MaterialIcons
-                            name="pedal-bike"
-                            size={size ? size : 24}
-                            color={focused ? color : "#222222"}
+                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
+                        <SimpleLineIcons
+                            name="bag"
+                            size={ICON_TAB_SIZE}
+                            color={focused ? color : "white"}
                             focused={focused}
                         />
-                    )
+                    ),
+                    title: 'Cart'
                 }}
-            /> */}
+
+            />
+
+            <Tab.Screen
+                name="search"
+                component={Cart}
+                options={{
+                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
+                        <Feather
+                            name="search"
+                            size={ICON_TAB_SIZE}
+                            color={focused ? color : "white"}
+                            focused={focused}
+                        />
+                    ),
+                    title: 'Search'
+                }}
+            />
+
+            <Tab.Screen
+                name="favorites"
+                component={Cart}
+                options={{
+
+                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
+                        <AntDesign
+                            name="hearto"
+                            size={ICON_TAB_SIZE}
+                            color={focused ? color : "white"}
+                            focused={focused}
+                        />
+                    ),
+                    title: 'Favorite'
+                }}
+            />
+
+            <Tab.Screen
+                name="Notifications"
+                component={Cart}
+                options={{
+                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
+                        <Fontisto
+                            name="bell"
+                            size={ICON_TAB_SIZE}
+                            color={focused ? color : "white"}
+                            focused={focused}
+                        />
+                    ),
+                    title: 'Notify'
+                }}
+            />
+
+            <Tab.Screen
+                name="Profile"
+                component={Cart}
+                options={{
+                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
+                        <Ionicons
+                            name="person"
+                            size={ICON_TAB_SIZE}
+                            color={focused ? color : "white"}
+                            focused={focused}
+                        />
+                    ),
+                    title: 'profile'
+                }}
+            />
+
+
         </Tab.Navigator>
     )
 }

@@ -14,6 +14,7 @@ import Link from "../../components/Link";
 import { useNavigation } from "@react-navigation/native";
 import { CardProps } from "../../util/model/CardProps";
 import SaleBikesList from "../../components/SaleBikesList";
+import ImageBanner from "../../components/ImageBanner";
 
 const avaliableBikes: CardProps[] = [
     {
@@ -79,7 +80,6 @@ const labelsFilter: FilterProps[] = [
 
 export default function Home() {
     const navigator = useNavigation<any>();
-
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <ImageSlider images={images} />
@@ -97,6 +97,20 @@ export default function Home() {
             </View>
 
             <SaleBikesList cards={avaliableBikes} />
+
+            <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
+                <Text style={globalStyles.title}>Collection</Text>
+
+                <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
+            </View>
+
+            <ImageBanner
+                source={require('../../../assets/mountain2.jpg')}
+                description={'See our new stock of mountain bikes and ride it!'}
+            />
+
+            <View style={{ marginVertical: 50 }} />
+
         </ScrollView >
     )
 }

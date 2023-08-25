@@ -10,7 +10,6 @@ export type FilterProps = {
 }
 
 const FilterButton = ({ label, option, activated = false, setActivated = () => { } }: FilterProps) => {
-    console.log(label)
     function onSendEventByFilter() {
         setActivated();
         // TODO: Logic here

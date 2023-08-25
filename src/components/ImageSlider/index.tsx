@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ImageBackground, NativeScrollEvent, NativeSyntheticEvent, View, useWindowDimensions, Text } from "react-native"
 import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
 import styles from "./style";
+import ImageBanner from "../ImageBanner";
 
 type Props = {
     images: any[],
@@ -62,27 +63,17 @@ export default function ImageSlider({ images }: Props) {
                 style={{ height: 200 }}>
                 {
                     images.map((image, key) => {
-
+                        const isFirstItem = key === 0
+                        const isLastItem = key === images.length - 1
                         return (
-                            <ImageBackground
-                                source={image.image}
+                            <ImageBanner
                                 key={key}
-                                style={{
-                                    marginLeft: key === 0 ? 10 : 0,
-                                    marginRight: key === images.length - 1 ? 10 : 0,
-                                    width: size,
-                                    borderRadius: 20,
-                                    height: 200,
-                                    backgroundColor: '#010101',
-                                }}
-
-                                imageStyle={{ opacity: 0.75, borderRadius: 20, }}
-                            >
-                                <View style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'space-between', padding: 10, gap: 10, flexDirection: 'row', }}>
-                                    <Text style={{ width: (size / 2), color: 'white', fontWeight: '700', fontStyle: 'italic', fontSize: 18 }}>{image.description}</Text>
-                                    {image.button}
-                                </View>
-                            </ImageBackground>
+                                source={image.image}
+                                description={image.description}
+                                button={image.button}
+                                isFirstItem={isFirstItem}
+                                isLastItem={isLastItem}
+                            />
                         )
                     }
                     )
