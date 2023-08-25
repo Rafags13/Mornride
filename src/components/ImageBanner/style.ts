@@ -21,6 +21,7 @@ const styles = (isFirstItem: boolean, isLastItem: boolean) => StyleSheet.create(
         flexDirection: 'row',
     },
     description: {
+        width: (size / 2),
         color: 'white',
         fontWeight: '700',
         fontStyle: 'italic',
