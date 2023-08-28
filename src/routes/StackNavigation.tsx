@@ -21,12 +21,7 @@ export default function StackNavigation() {
             <Stack.Screen
                 name="bikeTab"
                 component={BikeTab}
-                options={{
-                    headerBackVisible: false,
-                    headerTitleAlign: 'center',
-                    headerShadowVisible: false,
-                    headerTitle: (props) => (<Header tintColor={props.tintColor} />),
-                }}
+                options={{ headerShown: false }}
             />
         </Stack.Navigator>
     )

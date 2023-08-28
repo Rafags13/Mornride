@@ -1,7 +1,6 @@
 import { View, Text, ScrollView } from "react-native";
 
 import ImageSlider from "../../components/ImageSlider";
-import Button from "../../components/Button";
 import { FilterProps } from "../../components/FilterButton";
 import ListFilterButton from "../../components/ListFilterButton";
 import { globalStyles } from "../../util/styles/global";
@@ -11,13 +10,14 @@ import {
 } from 'date-fns';
 import ClockSale from "../../components/ClockSale";
 import Link from "../../components/Link";
-import { useNavigation } from "@react-navigation/native";
 import { CardProps } from "../../util/model/CardProps";
 import SaleBikesList from "../../components/SaleBikesList";
 import ImageBanner from "../../components/ImageBanner";
+import { ImageProps } from "../../util/model/ImageProps";
 
 const avaliableBikes: CardProps[] = [
     {
+        id: 1,
         imageUrl: require('../../../assets/bike1.png'),
         titleLabel: 'TDR 3.000 - Mountain Bike',
         avaliableColors: ['#FE0000', '#2071AF'],
@@ -25,6 +25,7 @@ const avaliableBikes: CardProps[] = [
         amountOnStock: 8,
     },
     {
+        id: 2,
         imageUrl: require('../../../assets/bike2.png'),
         titleLabel: 'Tuskar Elim - E - Series Bike',
         avaliableColors: ['#7CC3BB', '#f0f0f0'],
@@ -33,21 +34,34 @@ const avaliableBikes: CardProps[] = [
     }
 ]
 
-const images = [
+const images: ImageProps[] = [
     {
+        id: 1,
         image: require('../../../assets/mountain2.jpg'),
         description: 'ARE YOU PREPARED TO ADVENTURE WITH SUPER BIKES?',
-        button: <Button onClick={() => { }} label={"Discover now"} typeOfButton="info" />
+        button: {
+            label: 'Discover now',
+            typeOfButton: "info",
+            onClick: () => { }
+        }
     },
     {
+        id: 2,
         image: require('../../../assets/mountain.jpg'),
         description: 'ITS CLIMBING AND GOING DOWN STEEP TRAILS OR JUMPING HIGH AT BIKE PARKS',
-        button: <Button onClick={() => { }} label={"Shop now"} />
+        button: {
+            label: 'Shop now',
+            onClick: () => { }
+        }
     },
     {
+        id: 3,
         image: require('../../../assets/mountain3.jpg'),
         description: 'OUR BIKES ARE BUILT FROM YOUR MOUNTAIN ADVENTURES!',
-        button: <Button onClick={() => { }} label={"See now"} typeOfButton="info" />
+        button: {
+            label: 'See now',
+            onClick: () => { }
+        }
     },
 ]
 
@@ -79,7 +93,6 @@ const labelsFilter: FilterProps[] = [
 ]
 
 export default function Home() {
-    const navigator = useNavigation<any>();
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <ImageSlider images={images} />

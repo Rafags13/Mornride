@@ -21,15 +21,16 @@ export default function SaleBikesList({ cards }: Props) {
             }}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => (
+            renderItem={({ item }) => (
                 <BikeCard
+                    id={item.id}
+                    key={item.id}
+                    amountOnStock={item.amountOnStock}
+                    price={item.price}
                     favoriteButton={<FavoriteButton />}
                     bikeImage={<BikeImage source={item.imageUrl} />}
                     titleBike={<Text style={globalStyles.title}>{item.titleLabel}</Text>}
                     avaliableColors={<AvaliableColors colors={item.avaliableColors} />}
-                    amountOnStock={item.amountOnStock}
-                    price={item.price}
-                    key={index}
                 />
             )}
         />

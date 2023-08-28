@@ -1,12 +1,14 @@
 import { MotiView } from "moti"
 import { useState } from "react";
-import { ImageBackground, NativeScrollEvent, NativeSyntheticEvent, View, useWindowDimensions, Text } from "react-native"
+import { NativeScrollEvent, NativeSyntheticEvent, View, useWindowDimensions, Text } from "react-native"
 import Animated, { useAnimatedScrollHandler, useSharedValue } from "react-native-reanimated";
 import styles from "./style";
 import ImageBanner from "../ImageBanner";
+import { ImageProps } from "../../util/model/ImageProps";
+import Button from "../Button";
 
 type Props = {
-    images: any[],
+    images: ImageProps[],
 }
 
 const { ScrollView } = Animated;
@@ -70,7 +72,9 @@ export default function ImageSlider({ images }: Props) {
                                 key={key}
                                 source={image.image}
                                 description={image.description}
-                                button={image.button}
+                                button={
+                                    <Button onClick={image.button.onClick} label={image.button.label} typeOfButton={image.button.typeOfButton} />
+                                }
                                 isFirstItem={isFirstItem}
                                 isLastItem={isLastItem}
                             />

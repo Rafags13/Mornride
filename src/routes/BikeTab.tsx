@@ -13,6 +13,7 @@ import Home from '../pages/Home';
 import BikeSpecification from '../pages/BikeSpecifications';
 
 import Cart from '../pages/Cart';
+import HomeNavigation from './HomeNavigation';
 
 const Tab = AnimatedTabBarNavigator();
 
@@ -36,10 +37,11 @@ export default function BikeTab() {
             screenOptions={{
                 headerShown: true
             }}
+            initialRouteName='homeNavigation'
         >
             <Tab.Screen
-                name="home"
-                component={Home}
+                name="homeNavigation"
+                component={HomeNavigation}
                 options={{
                     tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
                         <Ionicons
