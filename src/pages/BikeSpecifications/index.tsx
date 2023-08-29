@@ -16,18 +16,20 @@ export default function BikeSpecification() {
     const [currentColor, setCurrentColor] = useState(Profile?.avaliableColors.at(0) || '');
     const [currentBikes, setCurrentBikes] = useState(Profile?.bikes);
     const [currentBike, setCurrentBike] = useState(Profile?.bikes.at(0));
+    const [currentDisplayPhoto, setCurrentDisplayPhoto] = useState(currentBike?.images.at(0));
     // TODO: Refactor and finish this (find new images and but then inside the assets folder)
 
     function onCurrentColor(color: string) {
         setCurrentColor(color);
         const newBikes = currentBikes?.find(bike => bike.colorHex === color);
+        setCurrentDisplayPhoto(newBikes?.images[0])
         setCurrentBike(newBikes);
     }
 
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <TouchableOpacity activeOpacity={0.5} style={styles.imageDisplayContainer}>
-                <BikeImage source={currentBike?.images.at(0)} height={300} />
+                <BikeImage source={currentDisplayPhoto} height={300} />
             </TouchableOpacity>
 
             <View style={styles.imageSelectorContainer}>
@@ -36,8 +38,8 @@ export default function BikeSpecification() {
                         <TouchableOpacity
                             key={index.toString()}
                             activeOpacity={0.5}
-                            style={[styles.imageSelector, { borderColor: currentBike === bike ? '#AFD471' : 'transparent' }]}
-                            onPress={() => { setCurrentBike(bike) }}
+                            style={[styles.imageSelector, { borderColor: currentDisplayPhoto === bike ? '#AFD471' : 'transparent' }]}
+                            onPress={() => { setCurrentDisplayPhoto(bike) }}
                         >
                             <BikeImage source={bike} height={70} />
                         </TouchableOpacity>
