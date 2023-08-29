@@ -1,8 +1,14 @@
 import { StyleSheet } from 'react-native'
+import { globalStyles } from '../../util/styles/global';
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width: '100%',
+        paddingHorizontal: 20,
+        backgroundColor: 'white'
+    },
     imageDisplayContainer: {
-        marginHorizontal: 20,
         backgroundColor: 'rgba(195, 195, 195, 0.25)',
         borderRadius: 20
     },
@@ -11,7 +17,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        paddingHorizontal: 20,
         marginVertical: 20
     },
     imageSelector: {
@@ -20,7 +25,33 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         width: '20%',
         padding: 5,
+    },
+    titleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    title: {
+        ...globalStyles.title,
+        fontSize: 22
+    },
+    heartBackground: {
+        backgroundColor: 'rgba(195,195,195,0.25)'
+    },
+    avaliationSection: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    rankText: {
+        color: '#c4c4c4',
+        fontWeight: '500',
+    },
+    rowLine: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 15
     }
+
 })
 
 export default styles;

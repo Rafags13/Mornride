@@ -22,18 +22,7 @@ export default function HomeNavigation() {
                     headerBackVisible: false,
                     headerTitleAlign: 'center',
                     headerShadowVisible: false,
-                    headerTitle: (props) => (<Header tintColor={props.tintColor} />),
-                }}
-            />
-            <Stack.Screen
-                name="bikeSpecification"
-                component={BikeSpecification}
-                options={{
-                    headerBackVisible: false,
-                    headerShadowVisible: false,
-                    header: (props) => (
-                        <BackHeader title={'PRODUCT DETAIL'} />
-                    ),
+                    header: (props) => (<Header tintColor={'black'} backgroundColor='white' />),
                 }}
             />
         </Stack.Navigator>

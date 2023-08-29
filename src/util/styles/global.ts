@@ -5,5 +5,10 @@ export const globalStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '700',
         color: 'black'
+    },
+    commonText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: 'black'
     }
 })
