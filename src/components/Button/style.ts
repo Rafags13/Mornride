@@ -5,7 +5,6 @@ const common = StyleSheet.create({
         padding: 15,
         borderRadius: 20,
         alignItems: 'center',
-        height: 50
     }
 })
 

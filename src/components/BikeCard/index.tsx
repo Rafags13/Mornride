@@ -2,6 +2,7 @@ import { TouchableOpacity, Image, ImageSourcePropType, View, Text } from "react-
 import styles from "./style";
 import { ReactNode } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { convertNumberFromTwoDecimals } from "../../util/functions";
 
 type Props = {
     id: number,
@@ -36,7 +37,7 @@ export default function BikeCard({ favoriteButton, bikeImage, titleBike, amountO
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 {avaliableColors}
                 <Text style={{ color: '#666', fontWeight: '700' }}>
-                    {`R$ ${price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                    {`R$ ${convertNumberFromTwoDecimals(price)}`}
                 </Text>
             </View>
         </View>

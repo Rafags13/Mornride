@@ -34,7 +34,8 @@ const BikeProfiles = [
             'Mountain Bike',
             'Kids',
             'Parts'
-        ]
+        ],
+        "price": 1300.90,
     },
     {
         "id": 2,
@@ -66,6 +67,7 @@ const BikeProfiles = [
         "stock": 4,
         "avaliableColors": ['#7CC3BB', '#f0f0f0'],
         "rankAverage": 4.0,
+        "price": 1485.90,
         "reviewCount": 32,
         "categories": [
             'Mountain Bike',
