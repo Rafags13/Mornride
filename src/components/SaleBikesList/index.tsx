@@ -1,38 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { CardProps } from '../../util/model/CardProps'
 import BikeCard from '../BikeCard'
 import FavoriteButton from '../FavoriteButton'
 import BikeImage from '../BikeImage'
-import { FlatList, Text } from 'react-native'
+import { FlatList, ImageSourcePropType, Text } from 'react-native'
 import AvaliableColors from '../AvaliableColors'
 import { globalStyles } from '../../util/styles/global'
+import { BikeCardsDto } from '../../util/model/BikeCardsDto'
+import DisplayTouchable from '../DisplayTouchable'
+import DisplayImage from '../DisplayImage'
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
-    cards: CardProps[]
+    bikeCards: BikeCardsDto[]
 }
 
-export default function SaleBikesList({ cards }: Props) {
+export default function SaleBikesList({ bikeCards }: Props) {
+    const [current, setCurrent] = useState(bikeCards);
+    const navigator = useNavigation<any>();
+
     return (
         <FlatList
-            data={cards}
+            data={current}
             style={{ marginVertical: 20 }}
             contentContainerStyle={{
                 gap: 20
             }}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item }) => (
-                <BikeCard
-                    id={item.id}
-                    key={item.id}
-                    amountOnStock={item.amountOnStock}
-                    price={item.price}
-                    favoriteButton={<FavoriteButton />}
-                    bikeImage={<BikeImage source={item.imageUrl} />}
-                    titleBike={<Text style={globalStyles.title}>{item.titleLabel}</Text>}
-                    avaliableColors={<AvaliableColors colors={item.avaliableColors} />}
-                />
-            )}
+            renderItem={({ item, index }) => {
+                return (
+                    <BikeCard bike={item} />
+                )
+            }}
         />
 
     )

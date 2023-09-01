@@ -1,7 +1,7 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import BikeImage from "../../components/BikeImage";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import BikeProfiles from "../../util/data/database";
 import styles from "./style";
 import { globalStyles } from "../../util/styles/global";
@@ -18,7 +18,7 @@ export default function BikeSpecification() {
     const { params } = useRoute<RouteProp<{ params: { bikeId: number } }, 'params'>>();
     const CurrentBike = BikeProfiles.find((value) => value.id === params.bikeId);
     const [currentBikeImages, setCurrentBikeImages] = useState(CurrentBike?.bikes.at(0));
-    const [currentDisplayPhoto, setCurrentDisplayPhoto] = useState(currentBikeImages?.images.at(0));
+    const [currentDisplayPhoto, setCurrentDisplayPhoto] = useState(currentBikeImages?.images[0]);
 
     function onCurrentColor(color: string) {
         const newBikes = CurrentBike?.bikes?.find(bike => bike.colorHex === color);
@@ -37,6 +37,7 @@ export default function BikeSpecification() {
                     <DisplayTouchable
                         key={bike}
                         isSelected={bike === currentDisplayPhoto}
+                        hasBorder
                         onPress={() => { setCurrentDisplayPhoto(bike) }}
                     >
                         <DisplayImage>

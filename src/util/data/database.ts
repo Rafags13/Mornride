@@ -21,6 +21,7 @@ const BikeProfiles = [
                 ]
             }
         ],
+        "currentBikeImage": require('../../../assets/1/full-bike.png'),
         "title": "TDR 3.000 - Mountain Bike",
         "description": "Express your love for all-round terrain with your favorite bike, " +
             "The Vitessa 2.00. Comes with an aerodynamic frame structure and equipped with " +
@@ -59,6 +60,7 @@ const BikeProfiles = [
                 ]
             }
         ],
+        "currentBikeImage": require('../../../assets/2/full-bike.png'),
         "title": "Tuskar Elim - E - Series Bike",
         "description": "Express your love for all-round terrain with your favorite bike, " +
             "The Vitessa 2.00. Comes with an aerodynamic frame structure and equipped with " +

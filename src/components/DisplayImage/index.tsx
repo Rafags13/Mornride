@@ -1,14 +1,15 @@
-import { View, Text } from 'react-native'
+import { View, StyleProp, ViewStyle } from 'react-native'
 import React, { ReactNode } from 'react'
 import styles from './style'
 
-type Props = {
-    children: ReactNode
+interface Props {
+    children: ReactNode,
+    style?: StyleProp<ViewStyle>
 }
 
-export default function DisplayImage({ children }: Props) {
+export default function DisplayImage({ children, style }: Props) {
     return (
-        <View style={styles.imageDisplayContainer}>
+        <View style={[styles.imageDisplayContainer, style]}>
             {children}
         </View>
     )

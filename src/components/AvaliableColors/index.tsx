@@ -4,10 +4,10 @@ import ChangeColor from '../ChangeColor'
 
 type Props = {
     colors: string[],
-    setCurrentColor: (color: string) => void,
+    setCurrentColor?: (color: string) => void,
 }
 
-export default function AvaliableColors({ colors, setCurrentColor }: Props) {
+export default function AvaliableColors({ colors, setCurrentColor = () => { } }: Props) {
     return (
         <View style={{ gap: 5, flexDirection: 'row' }} >
             {colors.map((color, key) => (

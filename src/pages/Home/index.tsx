@@ -1,4 +1,4 @@
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, FlatList } from "react-native";
 
 import ImageSlider from "../../components/ImageSlider";
 import { FilterProps } from "../../components/FilterButton";
@@ -14,25 +14,16 @@ import { CardProps } from "../../util/model/CardProps";
 import SaleBikesList from "../../components/SaleBikesList";
 import ImageBanner from "../../components/ImageBanner";
 import { ImageProps } from "../../util/model/ImageProps";
+import BikeProfiles from "../../util/data/database";
+import { useState } from "react";
+import DisplayTouchable from "../../components/DisplayTouchable";
+import DisplayImage from "../../components/DisplayImage";
+import FavoriteButton from "../../components/FavoriteButton";
+import BikeImage from "../../components/BikeImage";
+import AvaliableColors from "../../components/AvaliableColors";
+import { useNavigation } from "@react-navigation/native";
 
-const avaliableBikes: CardProps[] = [
-    {
-        id: 1,
-        imageUrl: require('../../../assets/bike1.png'),
-        titleLabel: 'TDR 3.000 - Mountain Bike',
-        avaliableColors: ['#FE0000', '#2071AF'],
-        price: 1300.90,
-        amountOnStock: 8,
-    },
-    {
-        id: 2,
-        imageUrl: require('../../../assets/bike2.png'),
-        titleLabel: 'Tuskar Elim - E - Series Bike',
-        avaliableColors: ['#7CC3BB', '#f0f0f0'],
-        price: 1485.90,
-        amountOnStock: 4,
-    }
-]
+
 
 const images: ImageProps[] = [
     {
@@ -93,6 +84,9 @@ const labelsFilter: FilterProps[] = [
 ]
 
 export default function Home() {
+    const [current, setCurrent] = useState(BikeProfiles);
+    const navigator = useNavigation<any>();
+
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <ImageSlider images={images} />
@@ -109,7 +103,18 @@ export default function Home() {
                 <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
             </View>
 
-            <SaleBikesList cards={avaliableBikes} />
+            {/* <DisplayTouchable
+                style={{ width: 200 }}
+                onPress={() => { navigator.navigate('bikeSpecification', { bikeId: 1 }) }}
+            >
+                <DisplayImage style={{ padding: 5 }}>
+                    <FavoriteButton />
+                    <BikeImage source={currentDisplayPhoto} />
+
+                    <AvaliableColors colors={CurrentBike?.avaliableColors as string[]} setCurrentColor={(color) => { onCurrentColor(color) }} />
+                </DisplayImage>
+            </DisplayTouchable> */}
+            <SaleBikesList bikeCards={BikeProfiles} />
 
             <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                 <Text style={globalStyles.title}>Collection</Text>

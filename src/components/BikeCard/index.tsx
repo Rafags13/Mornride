@@ -1,43 +1,56 @@
-import { TouchableOpacity, Image, ImageSourcePropType, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import styles from "./style";
-import { ReactNode } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { convertNumberFromTwoDecimals } from "../../util/functions";
+import AvaliableColors from "../AvaliableColors";
+import { BikeCardsDto } from "../../util/model/BikeCardsDto";
+import { globalStyles } from "../../util/styles/global";
+import DisplayTouchable from "../DisplayTouchable";
+import FavoriteButton from "../FavoriteButton";
+import BikeImage from "../BikeImage";
+import { useState } from "react";
+import DisplayImage from "../DisplayImage";
 
 type Props = {
-    id: number,
-    favoriteButton: ReactNode,
-    bikeImage: ReactNode,
-    titleBike?: ReactNode,
-    avaliableColors: ReactNode,
-    price: number,
-    amountOnStock?: number,
+    bike: BikeCardsDto
 }
 
-export default function BikeCard({ favoriteButton, bikeImage, titleBike, amountOnStock = 0, avaliableColors, price, id, }: Props) {
+export default function BikeCard({ bike }: Props) {
+    const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
+
     const navigation = useNavigation<any>();
+
     function onRedirectToBikeSpecification() {
-        navigation.navigate('bikeSpecification', { bikeId: id })
+        navigation.navigate('bikeSpecification', { bikeId: bike.id })
+    }
+
+    function setCurrentImageByColor(color: string) {
+        const current = bike.bikes.find(bike => bike.colorHex === color);
+        setCurrentPhoto(current?.images[0]);
     }
 
     return (
         <View style={{ gap: 10, width: 200 }}>
-            <TouchableOpacity style={{ width: 200, gap: 5 }} activeOpacity={0.5} onPress={onRedirectToBikeSpecification}>
-                <View style={styles.cardTouchableContainer} >
-                    {favoriteButton}
-                    {bikeImage}
-                </View>
-                {amountOnStock !== 0 && (
+            <DisplayTouchable style={{ width: 200, gap: 5 }} onPress={onRedirectToBikeSpecification}>
+                <DisplayImage style={{ padding: 5 }}>
+                    <FavoriteButton />
+                    <BikeImage source={currentPhoto} height={140} />
+                </DisplayImage>
+
+                {bike.stock > 0 && (
                     <Text style={styles.amountOnStockText}>
-                        {amountOnStock} stock bike left
+                        {bike.stock} stock bicycle left
                     </Text>
                 )}
-                {titleBike}
-            </TouchableOpacity>
+                <Text style={globalStyles.title}>{bike.title}</Text>
+            </DisplayTouchable>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                {avaliableColors}
+                <AvaliableColors
+                    colors={bike.avaliableColors}
+                    setCurrentColor={(color) => { setCurrentImageByColor(color) }}
+                />
                 <Text style={{ color: '#666', fontWeight: '700' }}>
-                    {`R$ ${convertNumberFromTwoDecimals(price)}`}
+                    {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}
                 </Text>
             </View>
         </View>

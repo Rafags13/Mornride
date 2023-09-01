@@ -4,15 +4,16 @@ import styles from './style'
 
 interface Props extends TouchableOpacityProps {
     children: ReactNode,
-    isSelected: boolean
+    isSelected?: boolean,
+    hasBorder?: boolean
 }
 
-const DisplayTouchable = (function DisplayTouchable({ children, isSelected, ...props }: Props) {
+const DisplayTouchable = (function DisplayTouchable({ children, isSelected = false, hasBorder = false, ...props }: Props) {
     return (
-        <TouchableOpacity activeOpacity={0.5} style={[styles.imageSelector, { borderColor: isSelected ? '#AFD471' : 'transparent' }]} {...props} >
+        <TouchableOpacity activeOpacity={0.5} style={[styles.imageSelector, { borderColor: isSelected && hasBorder ? '#AFD471' : 'transparent' }]} {...props} >
             {children}
         </TouchableOpacity>
     )
 });
 
-export default memo(DisplayTouchable, (prev, next) => prev.isSelected === next.isSelected)
+export default memo(DisplayTouchable, (prev, next) => prev.hasBorder ? prev.isSelected === next.isSelected : false)
