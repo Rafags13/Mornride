@@ -30,8 +30,8 @@ export default function BikeCard({ bike }: Props) {
     }
 
     return (
-        <View style={styles.cardContainer}>
-            <DisplayTouchable style={styles.cardContainer} onPress={onRedirectToBikeSpecification}>
+        <View style={{ gap: 10, width: 200 }}>
+            <DisplayTouchable style={{ width: 200, gap: 5 }} onPress={onRedirectToBikeSpecification}>
                 <DisplayImage style={{ padding: 5 }}>
                     <FavoriteButton />
                     <BikeImage source={currentPhoto} height={140} />
