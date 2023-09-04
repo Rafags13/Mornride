@@ -16,10 +16,10 @@ import ImageBanner from "../../components/ImageBanner";
 import { ImageProps } from "../../util/model/ImageProps";
 import BikeProfiles from "../../util/data/database";
 import { useState } from "react";
-import DisplayTouchable from "../../components/DisplayTouchable";
-import DisplayImage from "../../components/DisplayImage";
-import FavoriteButton from "../../components/FavoriteButton";
-import BikeImage from "../../components/BikeImage";
+import DisplayTouchable from "../../components/Bike/DisplayTouchable";
+import DisplayImage from "../../components/Bike/DisplayImage";
+import FavoriteButton from "../../components/Bike/FavoriteButton";
+import BikeImage from "../../components/Bike/BikeImage";
 import AvaliableColors from "../../components/AvaliableColors";
 import { useNavigation } from "@react-navigation/native";
 
@@ -103,17 +103,6 @@ export default function Home() {
                 <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
             </View>
 
-            {/* <DisplayTouchable
-                style={{ width: 200 }}
-                onPress={() => { navigator.navigate('bikeSpecification', { bikeId: 1 }) }}
-            >
-                <DisplayImage style={{ padding: 5 }}>
-                    <FavoriteButton />
-                    <BikeImage source={currentDisplayPhoto} />
-
-                    <AvaliableColors colors={CurrentBike?.avaliableColors as string[]} setCurrentColor={(color) => { onCurrentColor(color) }} />
-                </DisplayImage>
-            </DisplayTouchable> */}
             <SaleBikesList bikeCards={BikeProfiles} />
 
             <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>

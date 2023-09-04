@@ -5,11 +5,12 @@ import { convertNumberFromTwoDecimals } from "../../util/functions";
 import AvaliableColors from "../AvaliableColors";
 import { BikeCardsDto } from "../../util/model/BikeCardsDto";
 import { globalStyles } from "../../util/styles/global";
-import DisplayTouchable from "../DisplayTouchable";
-import FavoriteButton from "../FavoriteButton";
-import BikeImage from "../BikeImage";
+import DisplayTouchable from "../Bike/DisplayTouchable";
+import FavoriteButton from "../Bike/FavoriteButton";
+import BikeImage from "../Bike/BikeImage";
 import { useState } from "react";
-import DisplayImage from "../DisplayImage";
+import DisplayImage from "../Bike/DisplayImage";
+import { Bike } from "../Bike";
 
 type Props = {
     bike: BikeCardsDto
@@ -30,22 +31,19 @@ export default function BikeCard({ bike }: Props) {
     }
 
     return (
-        <View style={{ gap: 10, width: 200 }}>
-            <DisplayTouchable style={{ width: 200, gap: 5 }} onPress={onRedirectToBikeSpecification}>
-                <DisplayImage style={{ padding: 5 }}>
-                    <FavoriteButton />
-                    <BikeImage source={currentPhoto} height={140} />
-                </DisplayImage>
+        <Bike.Root>
+            <Bike.Touchable style={styles.cardContainer} onPress={onRedirectToBikeSpecification}>
+                <Bike.Display style={{ padding: 5 }}>
+                    <Bike.Favorite setIsFavorited={(favorited) => { }} />
+                    <Bike.Image source={currentPhoto} />
+                </Bike.Display>
 
-                {bike.stock > 0 && (
-                    <Text style={styles.amountOnStockText}>
-                        {bike.stock} stock bicycle left
-                    </Text>
-                )}
-                <Text style={globalStyles.title}>{bike.title}</Text>
-            </DisplayTouchable>
+                <Bike.Stock stock={bike.stock} />
+                <Bike.Title title={bike.title} />
+            </Bike.Touchable>
+
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <AvaliableColors
+                <Bike.Colors
                     colors={bike.avaliableColors}
                     setCurrentColor={(color) => { setCurrentImageByColor(color) }}
                 />
@@ -53,6 +51,6 @@ export default function BikeCard({ bike }: Props) {
                     {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}
                 </Text>
             </View>
-        </View>
+        </Bike.Root>
     )
 }

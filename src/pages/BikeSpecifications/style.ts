@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         paddingHorizontal: 20,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     imageDisplayContainer: {
         backgroundColor: 'rgba(195, 195, 195, 0.25)',
@@ -50,7 +50,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         marginTop: 15
-    }
+    },
+    buttonsContainer: {
+        flexDirection: 'row',
+        gap: 10
+    },
+    buttonCounterContainer: {
+        backgroundColor: "#c1f376",
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 5,
+        borderRadius: 20
+    },
+
 
 })
 

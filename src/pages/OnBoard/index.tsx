@@ -3,6 +3,7 @@ import styles from "./style";
 import Header from "../../components/Header";
 import { useNavigation } from "@react-navigation/native";
 import Button from "../../components/Button";
+import { globalStyles } from "../../util/styles/global";
 
 export default function OnBoard() {
     const navigation = useNavigation<any>();
@@ -23,7 +24,9 @@ export default function OnBoard() {
                     Keep healthy ride everyday everywhere with Mornride Bike product.
                     Login and get some produt of Mornride!
                 </Text>
-                <Button onClick={onNavigateToHome} label={"Get started"} />
+                <Button onClick={onNavigateToHome}>
+                    <Text style={globalStyles.commonText}>Get started</Text>
+                </Button>
             </View>
         </View>
     )

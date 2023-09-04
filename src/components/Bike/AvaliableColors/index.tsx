@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import ChangeColor from '../ChangeColor'
+import ChangeColor from './ChangeColor'
 
 type Props = {
     colors: string[],

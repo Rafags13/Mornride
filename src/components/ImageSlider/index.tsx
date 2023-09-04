@@ -6,6 +6,7 @@ import styles from "./style";
 import ImageBanner from "../ImageBanner";
 import { ImageProps } from "../../util/model/ImageProps";
 import Button from "../Button";
+import { globalStyles } from "../../util/styles/global";
 
 type Props = {
     images: ImageProps[],
@@ -73,7 +74,9 @@ export default function ImageSlider({ images }: Props) {
                                 source={image.image}
                                 description={image.description}
                                 button={
-                                    <Button onClick={image.button.onClick} label={image.button.label} typeOfButton={image.button.typeOfButton} />
+                                    <Button onClick={image.button.onClick} typeOfButton={image.button.typeOfButton} >
+                                        <Text style={globalStyles.commonText}>{image.button.label}</Text>
+                                    </Button>
                                 }
                                 isFirstItem={isFirstItem}
                                 isLastItem={isLastItem}
