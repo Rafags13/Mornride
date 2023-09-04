@@ -10,18 +10,11 @@ import {
 } from 'date-fns';
 import ClockSale from "../../components/ClockSale";
 import Link from "../../components/Link";
-import { CardProps } from "../../util/model/CardProps";
 import SaleBikesList from "../../components/SaleBikesList";
 import ImageBanner from "../../components/ImageBanner";
 import { ImageProps } from "../../util/model/ImageProps";
 import BikeProfiles from "../../util/data/database";
 import { useState } from "react";
-import DisplayTouchable from "../../components/Bike/DisplayTouchable";
-import DisplayImage from "../../components/Bike/DisplayImage";
-import FavoriteButton from "../../components/Bike/FavoriteButton";
-import BikeImage from "../../components/Bike/BikeImage";
-import AvaliableColors from "../../components/AvaliableColors";
-import { useNavigation } from "@react-navigation/native";
 
 
 
@@ -84,8 +77,6 @@ const labelsFilter: FilterProps[] = [
 ]
 
 export default function Home() {
-    const [current, setCurrent] = useState(BikeProfiles);
-    const navigator = useNavigation<any>();
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>

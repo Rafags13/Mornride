@@ -2,14 +2,8 @@ import { View, Text } from "react-native";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
 import { convertNumberFromTwoDecimals } from "../../util/functions";
-import AvaliableColors from "../AvaliableColors";
 import { BikeCardsDto } from "../../util/model/BikeCardsDto";
-import { globalStyles } from "../../util/styles/global";
-import DisplayTouchable from "../Bike/DisplayTouchable";
-import FavoriteButton from "../Bike/FavoriteButton";
-import BikeImage from "../Bike/BikeImage";
 import { useState } from "react";
-import DisplayImage from "../Bike/DisplayImage";
 import { Bike } from "../Bike";
 
 type Props = {

@@ -10,7 +10,7 @@ interface Props extends TouchableOpacityProps {
 
 const DisplayTouchable = (function DisplayTouchable({ children, isSelected = false, hasBorder = false, ...props }: Props) {
     return (
-        <TouchableOpacity activeOpacity={0.5} style={[styles.imageSelector, { borderColor: isSelected && hasBorder ? '#AFD471' : 'transparent' }]} {...props} >
+        <TouchableOpacity activeOpacity={0.5} style={[styles.imageSelector, { borderColor: isSelected && hasBorder ? '#AFD471' : 'transparent', width: hasBorder ? '20%' : '100%' }]} {...props} >
             {children}
         </TouchableOpacity>
     )

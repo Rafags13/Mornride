@@ -4,6 +4,8 @@ import { globalStyles } from '../../util/styles/global'
 import styles from './style'
 import Button from '../Button'
 import CounterButton from '../CounterButton'
+import { add } from '../../features/Cart/CartSlice'
+import { useAppDispatch } from '../../apps/hooks'
 
 type Props = {
     style?: StyleProp<ViewStyle>,
@@ -12,6 +14,7 @@ type Props = {
 
 export default function BuyMenu({ style, bikeId }: Props) {
     const [counter, setCounter] = useState<number>(0);
+    const dispatch = useAppDispatch()
 
     const onPurchaseRemoveInCounter = useCallback(() => {
         setCounter(purchaseCounter => purchaseCounter - 1);
@@ -22,7 +25,7 @@ export default function BuyMenu({ style, bikeId }: Props) {
     }, []);
 
     const onAddToCart = useCallback(() => {
-        console.log(`Adicionada a bike ${bikeId} no carrinho`)
+        dispatch(add(bikeId))
     }, []);
 
     const onBuyNow = useCallback(() => {

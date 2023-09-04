@@ -3,8 +3,7 @@ import { StyleSheet } from 'react-native'
 const styles = StyleSheet.create({
     imageSelector: {
         borderWidth: 3,
-        borderRadius: 20,
-        width: '20%',
+        borderRadius: 20
     },
 })
 
