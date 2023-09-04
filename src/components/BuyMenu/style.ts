@@ -5,7 +5,7 @@ const height = Dimensions.get('screen').height * 0.01;
 const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        width: '100%',
+        width: '90%',
         alignItems: 'center',
         alignSelf: 'center',
         backgroundColor: '#101010',
