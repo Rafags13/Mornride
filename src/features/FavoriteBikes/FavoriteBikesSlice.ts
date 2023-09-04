@@ -32,3 +32,9 @@ export const FavoriteBikesSlice = createSlice({
         },
     }
 })
+
+export const { addFromFavorite, removeFromFavorite } = FavoriteBikesSlice.actions;
+
+export const selectBikesInCart = (state: RootState) => state.bikes;
+
+export default FavoriteBikesSlice.reducer;
