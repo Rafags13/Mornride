@@ -4,7 +4,7 @@ import { globalStyles } from '../../util/styles/global'
 import styles from './style'
 import Button from '../Button'
 import CounterButton from '../CounterButton'
-import { add } from '../../features/Cart/CartSlice'
+import { addFromCart } from '../../features/Cart/CartSlice'
 import { useAppDispatch } from '../../apps/hooks'
 
 type Props = {
@@ -25,7 +25,7 @@ export default function BuyMenu({ style, bikeId }: Props) {
     }, []);
 
     const onAddToCart = useCallback(() => {
-        dispatch(add(bikeId))
+        dispatch(addFromCart(bikeId))
     }, []);
 
     const onBuyNow = useCallback(() => {

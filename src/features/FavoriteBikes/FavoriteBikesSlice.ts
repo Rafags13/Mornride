@@ -3,19 +3,19 @@ import type { RootState } from '../../apps/store';
 import { CardProps } from '../../util/model/CardProps';
 import BikeProfiles from '../../util/data/database';
 
-interface CartState {
+interface FavoriteBikeState {
     bikes: CardProps[]
 }
 
-const initialState: CartState = {
+const initialState: FavoriteBikeState = {
     bikes: []
 }
 
-export const cartSlice = createSlice({
-    name: 'cart',
+export const FavoriteBikesSlice = createSlice({
+    name: 'favorite',
     initialState,
     reducers: {
-        addFromCart: (state, action: PayloadAction<number>) => {
+        addFromFavorite: (state, action: PayloadAction<number>) => {
             const currentBike = BikeProfiles.find(bike => bike.id === action.payload);
             const newBike: CardProps = {
                 id: currentBike?.id || 0,
@@ -27,14 +27,8 @@ export const cartSlice = createSlice({
             }
             state.bikes.push(newBike);
         },
-        removeFromCart: (state, action: PayloadAction<number>) => {
+        removeFromFavorite: (state, action: PayloadAction<number>) => {
             state.bikes.filter((bike) => bike.id !== action.payload);
         },
     }
-});
-
-export const { addFromCart, removeFromCart } = cartSlice.actions;
-
-export const selectBikesInCart = (state: RootState) => state.bikes;
-
-export default cartSlice.reducer;
+})
