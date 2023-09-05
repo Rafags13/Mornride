@@ -30,12 +30,12 @@ export const cartSlice = createSlice({
                 avaliableColors: currentBike?.avaliableColors || [],
                 price: currentBike?.price || 0,
                 bikes: currentBike?.bikes || [],
-                counting: 1,
+                counting: action.payload.counting,
             }
             state.bikes.push(newBike);
         },
         removeFromCart: (state, action: PayloadAction<number>) => {
-            state.bikes.filter((bike) => bike.id !== action.payload);
+            state.bikes = state.bikes.filter((bike) => bike.id !== action.payload);
         },
     }
 });

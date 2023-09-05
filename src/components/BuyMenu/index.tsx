@@ -7,6 +7,7 @@ import CounterButton from '../CounterButton'
 import { addFromCart } from '../../features/Cart/CartSlice'
 import { useAppDispatch } from '../../apps/hooks';
 import { Snackbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native'
 
 type Props = {
     style?: StyleProp<ViewStyle>,
@@ -17,6 +18,8 @@ export default function BuyMenu({ style, bikeId }: Props) {
     const [counter, setCounter] = useState<number>(1);
     const [visible, setVisible] = React.useState(false);
     const dispatch = useAppDispatch();
+    const navigator = useNavigation<any>();
+
 
     const onPurchaseRemoveInCounter = useCallback(() => {
         setCounter(purchaseCounter => purchaseCounter - 1);
@@ -56,6 +59,15 @@ export default function BuyMenu({ style, bikeId }: Props) {
                 onDismiss={() => { setVisible(false) }}
                 duration={1000}
                 style={{ backgroundColor: counter === 0 ? 'red' : 'green' }}
+
+                action={{
+                    label: counter === 0 ? 'Close' : 'See',
+                    onPress: () => {
+                        if (counter === 0) return;
+
+                        navigator.navigate('cart')
+                    }
+                }}
             >
                 {counter === 0 ? 'Select at least 1 bike' : 'Added to cart'}
             </Snackbar>
