@@ -2,10 +2,11 @@ import { StyleSheet } from 'react-native'
 
 const common = StyleSheet.create({
     button: {
-        padding: 15,
         borderRadius: 20,
         alignItems: 'center',
-        height: 50
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 10,
     }
 })
 
@@ -17,6 +18,10 @@ const styles = StyleSheet.create({
     info: {
         backgroundColor: 'white',
         ...common.button
+    },
+    empty: {
+        backgroundColor: 'transparent',
+        ...common.button,
     },
     buttonText: {
         color: 'black',

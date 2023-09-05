@@ -1,37 +1,50 @@
-import { TouchableOpacity, Image, ImageSourcePropType, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import styles from "./style";
-import { ReactNode } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { convertNumberFromTwoDecimals } from "../../util/functions";
+import { BikeCardsDto } from "../../util/model/BikeCardsDto";
+import { useState } from "react";
+import { Bike } from "../Bike";
 
 type Props = {
-    favoriteButton: ReactNode,
-    bikeImage: ReactNode,
-    titleBike?: ReactNode,
-    avaliableColors: ReactNode,
-    price: number,
-    amountOnStock?: number,
+    bike: BikeCardsDto
 }
 
-export default function BikeCard({ favoriteButton, bikeImage, titleBike, amountOnStock = 0, avaliableColors, price }: Props) {
+export default function BikeCard({ bike }: Props) {
+    const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
+
+    const navigation = useNavigation<any>();
+
+    function onRedirectToBikeSpecification() {
+        navigation.navigate('bikeSpecification', { bikeId: bike.id })
+    }
+
+    function setCurrentImageByColor(color: string) {
+        const current = bike.bikes.find(bike => bike.colorHex === color);
+        setCurrentPhoto(current?.images[0]);
+    }
+
     return (
-        <View style={{ gap: 10, width: 200 }}>
-            <TouchableOpacity style={{ width: 200, gap: 5 }} activeOpacity={0.5}>
-                <View style={styles.cardTouchableContainer} >
-                    {favoriteButton}
-                    {bikeImage}
-                </View>
-                {amountOnStock !== 0 && (
-                    <Text style={styles.amountOnStockText}>
-                        {amountOnStock} stock bike left
-                    </Text>
-                )}
-                {titleBike}
-            </TouchableOpacity>
+        <Bike.Root>
+            <Bike.Touchable style={styles.cardContainer} onPress={onRedirectToBikeSpecification}>
+                <Bike.Display style={{ padding: 5 }}>
+                    <Bike.Favorite setIsFavorited={(favorited) => { }} />
+                    <Bike.Image source={currentPhoto} />
+                </Bike.Display>
+
+                <Bike.Stock stock={bike.stock} />
+                <Bike.Title title={bike.title} />
+            </Bike.Touchable>
+
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                {avaliableColors}
+                <Bike.Colors
+                    colors={bike.avaliableColors}
+                    setCurrentColor={(color) => { setCurrentImageByColor(color) }}
+                />
                 <Text style={{ color: '#666', fontWeight: '700' }}>
-                    {`R$ ${price.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
+                    {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}
                 </Text>
             </View>
-        </View>
+        </Bike.Root>
     )
 }

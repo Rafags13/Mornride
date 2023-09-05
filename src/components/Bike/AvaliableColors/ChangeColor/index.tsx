@@ -9,6 +9,6 @@ type Props = {
 export default function ChangeColor({ color }: Props) {
   const style = styles(color);
   return (
-    <TouchableOpacity style={style.colorCircle} />
+    <View style={style.colorCircle} />
   )
 }

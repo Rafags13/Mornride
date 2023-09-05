@@ -1,26 +1,25 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text, TouchableOpacityProps, StyleProp, TextStyle } from "react-native";
 import styles from "./style";
+import { ReactNode } from "react";
 
-type Props = {
+export type ButtonType = 'default' | 'info' | 'empty';
+export interface ButtonProps extends TouchableOpacityProps {
     onClick: () => void,
-    label: string,
-    typeOfButton?: 'default' | 'info',
+    typeOfButton?: ButtonType,
+    children: ReactNode,
+    disabled?: boolean
 }
 
-export default function Button({ onClick, label, typeOfButton = 'default' }: Props) {
-
-    const ButtonTypes = {
-        default: styles.default,
-        info: styles.info
-    }
-
+export default function Button({ onClick, typeOfButton = 'default', disabled = false, children, ...props }: ButtonProps) {
     return (
         <TouchableOpacity
             activeOpacity={0.5}
-            style={ButtonTypes[typeOfButton]}
+            style={[styles[typeOfButton]]}
             onPress={onClick}
+            disabled={disabled}
+            {...props}
         >
-            <Text style={styles.buttonText}>{label}</Text>
+            {children}
         </TouchableOpacity>
     )
 }

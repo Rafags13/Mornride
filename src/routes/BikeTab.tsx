@@ -6,13 +6,11 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import {
     AnimatedTabBarNavigator,
     DotSize,
-    TabElementDisplayOptions,
-    IAppearanceOptions
+    TabElementDisplayOptions
 } from 'react-native-animated-nav-tab-bar';
-import Home from '../pages/Home';
-import BikeSpecification from '../pages/BikeSpecifications';
 
 import Cart from '../pages/Cart';
+import HomeNavigation from './HomeNavigation';
 
 const Tab = AnimatedTabBarNavigator();
 
@@ -36,20 +34,22 @@ export default function BikeTab() {
             screenOptions={{
                 headerShown: true
             }}
+            initialRouteName='homeNavigation'
         >
             <Tab.Screen
-                name="home"
-                component={Home}
-                options={{
-                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
+                name="homeNavigation"
+                component={HomeNavigation}
+                options={() => ({
+                    tabBarIcon: ({ focused, color }: { focused: boolean, color: string, size: number }) => (
                         <Ionicons
                             name="home"
                             size={ICON_TAB_SIZE}
                             color={focused ? color : 'white'}
                         />
                     ),
-                    title: 'Home'
-                }}
+                    title: 'Home',
+                })}
+
 
             />
 
