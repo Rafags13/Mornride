@@ -15,5 +15,10 @@ export const globalStyles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '600',
         color: 'black'
+    },
+    warning: {
+        fontSize: 18,
+        fontWeight: '400',
+        color: '#333'
     }
 })

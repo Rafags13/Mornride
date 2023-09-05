@@ -17,9 +17,9 @@ type Props = {
 export default function BuyMenu({ style, bikeId }: Props) {
     const [counter, setCounter] = useState<number>(1);
     const [visible, setVisible] = React.useState(false);
+    const counterHasZeroInCount = counter === 0;
     const dispatch = useAppDispatch();
     const navigator = useNavigation<any>();
-
 
     const onPurchaseRemoveInCounter = useCallback(() => {
         setCounter(purchaseCounter => purchaseCounter - 1);
@@ -58,18 +58,19 @@ export default function BuyMenu({ style, bikeId }: Props) {
                 visible={visible}
                 onDismiss={() => { setVisible(false) }}
                 duration={1000}
-                style={{ backgroundColor: counter === 0 ? 'red' : 'green' }}
+                style={{ backgroundColor: counterHasZeroInCount ? 'red' : '#c1f376' }}
 
                 action={{
-                    label: counter === 0 ? 'Close' : 'See',
+                    label: counterHasZeroInCount ? 'Close' : 'See',
                     onPress: () => {
-                        if (counter === 0) return;
+                        if (counterHasZeroInCount) return;
 
                         navigator.navigate('cart')
-                    }
+                    },
+                    textColor: counterHasZeroInCount ? 'white' : 'black'
                 }}
             >
-                {counter === 0 ? 'Select at least 1 bike' : 'Added to cart'}
+                <Text style={{ color: counterHasZeroInCount ? 'white' : 'black' }}>{counterHasZeroInCount ? 'Select at least 1 bike' : 'Added to cart'}</Text>
             </Snackbar>
         </View >
     )

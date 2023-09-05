@@ -17,7 +17,7 @@ export default function Cart() {
   const dispatch = useAppDispatch();
   return (
     <View style={{ padding: 20, marginTop: 30, gap: 10 }}>
-      <Text style={globalStyles.bigTitle}>Carrinho</Text>
+      <Text style={globalStyles.bigTitle}>Cart</Text>
 
       {bikes.length === 0 && (
         <Text style={globalStyles.commonText}>Nobody to see here...</Text>
