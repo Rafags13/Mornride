@@ -6,6 +6,11 @@ export const globalStyles = StyleSheet.create({
         fontWeight: '700',
         color: 'black'
     },
+    bigTitle: {
+        fontSize: 24,
+        fontWeight: '700',
+        color: 'black'
+    },
     commonText: {
         fontSize: 14,
         fontWeight: '600',

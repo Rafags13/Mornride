@@ -8,5 +8,6 @@ export type CardProps = {
     titleLabel: string,
     avaliableColors: string[],
     amountOnStock?: number,
+    counting: number,
     price: number
 }
