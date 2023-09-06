@@ -32,9 +32,10 @@ const BikeProfiles = [
         "rankAverage": 4.5,
         "reviewCount": 80,
         "categories": [
-            'Mountain Bike',
-            'Kids',
-            'Parts'
+            'mountain',
+            'kid',
+            'parts',
+            'eletronic',
         ],
         "price": 1300.90,
     },
@@ -72,8 +73,9 @@ const BikeProfiles = [
         "price": 1485.90,
         "reviewCount": 32,
         "categories": [
-            'Mountain Bike',
-            'Parts'
+            'mountain',
+            'parts',
+            'ergonomic',
         ]
     },
 ]

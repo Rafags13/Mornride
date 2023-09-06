@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import BikeCard from '../BikeCard'
-import { FlatList } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { BikeCardsDto } from '../../util/model/BikeCardsDto'
+import { globalStyles } from '../../util/styles/global'
 
 type Props = {
     bikeCards: BikeCardsDto[]
 }
 
 export default function SaleBikesList({ bikeCards }: Props) {
-
     return (
         <FlatList
             data={bikeCards}

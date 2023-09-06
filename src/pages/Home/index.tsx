@@ -14,7 +14,7 @@ import SaleBikesList from "../../components/SaleBikesList";
 import ImageBanner from "../../components/ImageBanner";
 import { ImageProps } from "../../util/model/ImageProps";
 import BikeProfiles from "../../util/data/database";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 
 
@@ -77,12 +77,22 @@ const labelsFilter: FilterProps[] = [
 ]
 
 export default function Home() {
+    const [bikes, setBikes] = useState(BikeProfiles);
+    const filteredBikes = useCallback((filter: string) => {
+        if (filter === '') {
+            setBikes(BikeProfiles);
+            return;
+        }
+
+        const filtered = BikeProfiles.filter(bike => bike.categories.find(category => category === filter));
+        setBikes(filtered);
+    }, []);
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <ImageSlider images={images} />
 
-            <ListFilterButton filters={labelsFilter} />
+            <ListFilterButton filters={labelsFilter} onChangeFilter={filteredBikes} />
 
             <Text style={globalStyles.title}>Flash sale</Text>
 
@@ -94,7 +104,7 @@ export default function Home() {
                 <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
             </View>
 
-            <SaleBikesList bikeCards={BikeProfiles} />
+            <SaleBikesList bikeCards={bikes} />
 
             <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                 <Text style={globalStyles.title}>Collection</Text>
