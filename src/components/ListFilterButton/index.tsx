@@ -4,10 +4,11 @@ import FilterButton, { FilterProps } from '../FilterButton'
 import styles from './style'
 
 type Props = {
-    filters: FilterProps[]
+    filters: FilterProps[],
+    onChangeFilter: (filter: string) => void,
 }
 
-const ListFilterButton = (function ListFilterButton({ filters }: Props) {
+const ListFilterButton = (function ListFilterButton({ filters, onChangeFilter }: Props) {
     const [currentIndexActivated, setCurrentIndexActivated] = useState(0);
     const flatlistRef = useRef<FlatList>(null);
 
@@ -29,7 +30,8 @@ const ListFilterButton = (function ListFilterButton({ filters }: Props) {
                         activated={currentIndexActivated === index}
                         setActivated={() => {
                             setCurrentIndexActivated(index);
-                            flatlistRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5 })
+                            flatlistRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5 });
+                            onChangeFilter(item.option);
                         }}
                     />
                 )

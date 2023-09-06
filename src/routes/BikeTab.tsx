@@ -11,6 +11,10 @@ import {
 
 import Cart from '../pages/Cart';
 import HomeNavigation from './HomeNavigation';
+import Favorites from '../pages/Favorites';
+import Notifications from '../pages/Notifications';
+import Profile from '../pages/Profile';
+import SearchBike from '../pages/SearchBike';
 
 const Tab = AnimatedTabBarNavigator();
 
@@ -72,7 +76,7 @@ export default function BikeTab() {
 
             <Tab.Screen
                 name="search"
-                component={Cart}
+                component={SearchBike}
                 options={{
                     tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
                         <Feather
@@ -88,7 +92,7 @@ export default function BikeTab() {
 
             <Tab.Screen
                 name="favorites"
-                component={Cart}
+                component={Favorites}
                 options={{
 
                     tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
@@ -105,7 +109,7 @@ export default function BikeTab() {
 
             <Tab.Screen
                 name="Notifications"
-                component={Cart}
+                component={Notifications}
                 options={{
                     tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
                         <Fontisto
@@ -121,7 +125,7 @@ export default function BikeTab() {
 
             <Tab.Screen
                 name="Profile"
-                component={Cart}
+                component={Profile}
                 options={{
                     tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
                         <Ionicons

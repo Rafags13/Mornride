@@ -1,3 +1,6 @@
+import { FilterProps } from "../../components/FilterButton";
+import { ImageProps } from "../model/ImageProps";
+
 const BikeProfiles = [
     {
         "id": 1,
@@ -32,9 +35,10 @@ const BikeProfiles = [
         "rankAverage": 4.5,
         "reviewCount": 80,
         "categories": [
-            'Mountain Bike',
-            'Kids',
-            'Parts'
+            'mountain',
+            'kid',
+            'parts',
+            'eletronic',
         ],
         "price": 1300.90,
     },
@@ -72,9 +76,69 @@ const BikeProfiles = [
         "price": 1485.90,
         "reviewCount": 32,
         "categories": [
-            'Mountain Bike',
-            'Parts'
+            'mountain',
+            'parts',
+            'ergonomic',
         ]
     },
 ]
+
+export const images: ImageProps[] = [
+    {
+        id: 1,
+        image: require('../../../assets/mountain2.jpg'),
+        description: 'ARE YOU PREPARED TO ADVENTURE WITH SUPER BIKES?',
+        button: {
+            label: 'Discover now',
+            typeOfButton: "info",
+            onClick: () => { }
+        }
+    },
+    {
+        id: 2,
+        image: require('../../../assets/mountain.jpg'),
+        description: 'ITS CLIMBING AND GOING DOWN STEEP TRAILS OR JUMPING HIGH AT BIKE PARKS',
+        button: {
+            label: 'Shop now',
+            onClick: () => { }
+        }
+    },
+    {
+        id: 3,
+        image: require('../../../assets/mountain3.jpg'),
+        description: 'OUR BIKES ARE BUILT FROM YOUR MOUNTAIN ADVENTURES!',
+        button: {
+            label: 'See now',
+            onClick: () => { }
+        }
+    },
+];
+
+export const labelsFilter: FilterProps[] = [
+    {
+        label: 'All',
+        option: ''
+    },
+    {
+        label: 'E-Series',
+        option: 'eletronic'
+    },
+    {
+        label: 'Mountain Bike',
+        option: 'mountain'
+    },
+    {
+        label: 'Parts',
+        option: 'parts'
+    },
+    {
+        label: 'Ergonomic Bikes',
+        option: 'ergonomic'
+    },
+    {
+        label: 'Kids',
+        option: 'kid'
+    },
+]
+
 export default BikeProfiles;

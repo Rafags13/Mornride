@@ -1,88 +1,37 @@
+import { useCallback, useState } from "react";
 import { View, Text, ScrollView, FlatList } from "react-native";
-
-import ImageSlider from "../../components/ImageSlider";
-import { FilterProps } from "../../components/FilterButton";
-import ListFilterButton from "../../components/ListFilterButton";
-import { globalStyles } from "../../util/styles/global";
-
 import {
     set
 } from 'date-fns';
+
+import ImageSlider from "../../components/ImageSlider";
+import ListFilterButton from "../../components/ListFilterButton";
 import ClockSale from "../../components/ClockSale";
 import Link from "../../components/Link";
 import SaleBikesList from "../../components/SaleBikesList";
 import ImageBanner from "../../components/ImageBanner";
-import { ImageProps } from "../../util/model/ImageProps";
-import BikeProfiles from "../../util/data/database";
-import { useState } from "react";
 
+import BikeProfiles, { images, labelsFilter } from "../../util/data/database";
 
-
-const images: ImageProps[] = [
-    {
-        id: 1,
-        image: require('../../../assets/mountain2.jpg'),
-        description: 'ARE YOU PREPARED TO ADVENTURE WITH SUPER BIKES?',
-        button: {
-            label: 'Discover now',
-            typeOfButton: "info",
-            onClick: () => { }
-        }
-    },
-    {
-        id: 2,
-        image: require('../../../assets/mountain.jpg'),
-        description: 'ITS CLIMBING AND GOING DOWN STEEP TRAILS OR JUMPING HIGH AT BIKE PARKS',
-        button: {
-            label: 'Shop now',
-            onClick: () => { }
-        }
-    },
-    {
-        id: 3,
-        image: require('../../../assets/mountain3.jpg'),
-        description: 'OUR BIKES ARE BUILT FROM YOUR MOUNTAIN ADVENTURES!',
-        button: {
-            label: 'See now',
-            onClick: () => { }
-        }
-    },
-]
-
-const labelsFilter: FilterProps[] = [
-    {
-        label: 'All',
-        option: ''
-    },
-    {
-        label: 'E-Series',
-        option: 'eletronic'
-    },
-    {
-        label: 'Mountain Bike',
-        option: 'mountain'
-    },
-    {
-        label: 'Parts',
-        option: 'parts'
-    },
-    {
-        label: 'Ergonomic Bikes',
-        option: 'ergonomic'
-    },
-    {
-        label: 'Kids',
-        option: 'kid'
-    },
-]
+import { globalStyles } from "../../util/styles/global";
 
 export default function Home() {
+    const [bikes, setBikes] = useState(BikeProfiles);
+    const filteredBikes = useCallback((filter: string) => {
+        if (filter === '') {
+            setBikes(BikeProfiles);
+            return;
+        }
+
+        const filtered = BikeProfiles.filter(bike => bike.categories.find(category => category === filter));
+        setBikes(filtered);
+    }, []);
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
             <ImageSlider images={images} />
 
-            <ListFilterButton filters={labelsFilter} />
+            <ListFilterButton filters={labelsFilter} onChangeFilter={filteredBikes} />
 
             <Text style={globalStyles.title}>Flash sale</Text>
 
@@ -94,7 +43,7 @@ export default function Home() {
                 <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
             </View>
 
-            <SaleBikesList bikeCards={BikeProfiles} />
+            <SaleBikesList bikeCards={bikes} />
 
             <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                 <Text style={globalStyles.title}>Collection</Text>
