@@ -108,22 +108,6 @@ export default function BikeTab() {
             />
 
             <Tab.Screen
-                name="Notifications"
-                component={Notifications}
-                options={{
-                    tabBarIcon: ({ focused, color, size }: { focused: boolean, color: string, size: number }) => (
-                        <Fontisto
-                            name="bell"
-                            size={ICON_TAB_SIZE}
-                            color={focused ? color : "white"}
-                            focused={focused}
-                        />
-                    ),
-                    title: 'Notify'
-                }}
-            />
-
-            <Tab.Screen
                 name="Profile"
                 component={Profile}
                 options={{

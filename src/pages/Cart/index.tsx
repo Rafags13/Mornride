@@ -7,7 +7,7 @@ import Button from '../../components/Button'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { removeFromCart } from '../../features/Cart/CartSlice'
 
-const { Root, Touchable, Display, Image, Colors, Title, Price } = Bike;
+const { Root, Display, Image, Colors, Title, Price } = Bike;
 
 const height = Dimensions.get('screen').height * 0.70;
 
