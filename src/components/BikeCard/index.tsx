@@ -5,6 +5,8 @@ import { convertNumberFromTwoDecimals } from "../../util/functions";
 import { BikeCardsDto } from "../../util/model/BikeCardsDto";
 import { useState } from "react";
 import { Bike } from "../Bike";
+import { FavoriteBikesProps, addFromFavorite, removeFromFavorite } from '../../features/FavoriteBikes/FavoriteBikesSlice';
+import { useAppDispatch, useAppSelector } from "../../apps/hooks";
 
 type Props = {
     bike: BikeCardsDto
@@ -12,6 +14,8 @@ type Props = {
 
 export default function BikeCard({ bike }: Props) {
     const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
+    const bikeDisplayedIsFavorited = useAppSelector((state) => state.favoriteBikes.bikes.find(x => x.id === bike.id) !== undefined);
+    const dispatch = useAppDispatch();
 
     const navigation = useNavigation<any>();
 
@@ -28,7 +32,14 @@ export default function BikeCard({ bike }: Props) {
         <Bike.Root>
             <Bike.Touchable style={styles.cardContainer} onPress={onRedirectToBikeSpecification}>
                 <Bike.Display style={{ padding: 5 }}>
-                    <Bike.Favorite setIsFavorited={(favorited) => { }} />
+                    <Bike.Favorite isFavorited={bikeDisplayedIsFavorited} setIsFavorited={(favorited) => {
+                        if (favorited) {
+                            dispatch(addFromFavorite(bike.id));
+                            return;
+                        }
+
+                        dispatch(removeFromFavorite(bike.id));
+                    }} />
                     <Bike.Image source={currentPhoto} />
                 </Bike.Display>
 

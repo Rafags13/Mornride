@@ -8,12 +8,16 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { convertCaterogiesToLabel, convertNumberFromTwoDecimals } from "../../util/functions";
 import BuyMenu from "../../components/BuyMenu";
 import { Bike } from "../../components/Bike";
+import { useAppDispatch, useAppSelector } from "../../apps/hooks";
+import { addFromFavorite, removeFromFavorite } from "../../features/FavoriteBikes/FavoriteBikesSlice";
 
 export default function BikeSpecification() {
     const { params } = useRoute<RouteProp<{ params: { bikeId: number } }, 'params'>>();
     const CurrentBike = BikeProfiles.find((value) => value.id === params.bikeId);
     const [currentBikeImages, setCurrentBikeImages] = useState(CurrentBike?.bikes.at(0));
     const [currentDisplayPhoto, setCurrentDisplayPhoto] = useState(currentBikeImages?.images[0]);
+    const bikeDisplayedIsFavorited = useAppSelector((state) => state.favoriteBikes.bikes.find(x => x.id === params.bikeId) !== undefined);
+    const dispatch = useAppDispatch();
 
     const onCurrentColor = useCallback((color: string) => {
         const newBikes = CurrentBike?.bikes?.find(bike => bike.colorHex === color);
@@ -47,7 +51,14 @@ export default function BikeSpecification() {
                 <View style={styles.titleContainer}>
                     <Bike.Title title={CurrentBike?.title || ''} size="large" />
 
-                    <Bike.Favorite containerStyle={styles.heartBackground} setIsFavorited={() => { }} />
+                    <Bike.Favorite isFavorited={bikeDisplayedIsFavorited} containerStyle={styles.heartBackground} setIsFavorited={(favorite) => {
+                        if (favorite) {
+                            addFromFavorite(params.bikeId);
+                            return;
+                        }
+
+                        removeFromFavorite(params.bikeId);
+                    }} />
                 </View>
 
                 <View style={styles.rowLine}>

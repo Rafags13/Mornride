@@ -1,23 +1,17 @@
 import { StyleProp, TouchableOpacity, ViewStyle } from "react-native";
 import styles from "./style";
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useState } from "react";
 
 type Props = {
     containerStyle?: StyleProp<ViewStyle>,
+    isFavorited?: boolean,
     setIsFavorited: (favorited: boolean) => void,
 }
 
-export default function FavoriteButton({ containerStyle, setIsFavorited }: Props) {
-    const [isFavorited, setFavorited] = useState(false);
-
-    function onToggleFavorited() {
-        setFavorited(!isFavorited);
-        setIsFavorited(!isFavorited);
-    }
+export default function FavoriteButton({ containerStyle, isFavorited = false, setIsFavorited }: Props) {
 
     return (
-        <TouchableOpacity style={[styles.buttonContainer, containerStyle]} onPress={() => { setFavorited(!isFavorited) }}>
+        <TouchableOpacity style={[styles.buttonContainer, containerStyle]} onPress={() => { setIsFavorited(!isFavorited) }}>
             {isFavorited ?
                 <AntDesign name="heart" size={13} color='red' /> :
                 <AntDesign name="hearto" size={13} color='black' />
