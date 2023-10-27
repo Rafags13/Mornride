@@ -7,7 +7,7 @@ export type ImageProps = {
     description: string;
     button: {
         label: string,
-        onClick: () => void,
+        collection: string,
         typeOfButton?: ButtonType,
     }
 }

@@ -53,11 +53,11 @@ export default function BikeSpecification() {
 
                     <Bike.Favorite isFavorited={bikeDisplayedIsFavorited} containerStyle={styles.heartBackground} setIsFavorited={(favorite) => {
                         if (favorite) {
-                            addFromFavorite(params.bikeId);
+                            dispatch(addFromFavorite(params.bikeId));
                             return;
                         }
 
-                        removeFromFavorite(params.bikeId);
+                        dispatch(removeFromFavorite(params.bikeId));
                     }} />
                 </View>
 
