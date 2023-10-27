@@ -5,13 +5,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     paddingVertical: 50,
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
   },
   imageProfile: {
     borderRadius: 100,
     height: 100,
-    width: 100,
-    alignSelf: 'center'
+    width: 100
   },
   userByText: {
     ...globalStyles.commonText,
@@ -21,9 +20,9 @@ const styles = StyleSheet.create({
     ...globalStyles.title,
     color: '#E7A33E',
     alignSelf: 'center',
-    paddingVertical: 20,
   },
   lastBoughtContainer: {
+    marginTop: 15,
     gap: 20,
     marginBottom: 130 
   },
