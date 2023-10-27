@@ -91,7 +91,7 @@ export const images: ImageProps[] = [
         button: {
             label: 'Discover now',
             typeOfButton: "info",
-            onClick: () => { }
+            collection: "eletronic"
         }
     },
     {
@@ -100,7 +100,7 @@ export const images: ImageProps[] = [
         description: 'ITS CLIMBING AND GOING DOWN STEEP TRAILS OR JUMPING HIGH AT BIKE PARKS',
         button: {
             label: 'Shop now',
-            onClick: () => { }
+            collection: "mountain"
         }
     },
     {
@@ -109,7 +109,7 @@ export const images: ImageProps[] = [
         description: 'OUR BIKES ARE BUILT FROM YOUR MOUNTAIN ADVENTURES!',
         button: {
             label: 'See now',
-            onClick: () => { }
+            collection: "mountain"
         }
     },
 ];

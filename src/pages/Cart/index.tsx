@@ -7,7 +7,7 @@ import Button from '../../components/Button'
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { removeFromCart } from '../../features/Cart/CartSlice'
 
-const { Root, Touchable, Display, Image, Favorite, Colors, Title, Price } = Bike;
+const { Root, Display, Image, Colors, Title, Price } = Bike;
 
 const height = Dimensions.get('screen').height * 0.70;
 
@@ -28,12 +28,9 @@ export default function Cart() {
           {bikes.map((bike) => (
             <Root key={bike.id}>
               <Display style={{ padding: 5 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <TouchableOpacity onPress={() => { dispatch(removeFromCart(bike.id)) }}>
-                    <FontAwesome name="trash-o" size={24} color='red' />
-                  </TouchableOpacity>
-                  <Favorite setIsFavorited={(favorited: boolean) => { }} />
-                </View>
+                <TouchableOpacity onPress={() => { dispatch(removeFromCart(bike.id)) }} style={{ alignSelf: 'flex-end', margin: 10 }}>
+                  <FontAwesome name="trash-o" size={24} color='black' />
+                </TouchableOpacity>
                 <Image source={bike.imageUrl} />
               </Display>
 

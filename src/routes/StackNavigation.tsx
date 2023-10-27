@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import BikeSpecification from "../pages/BikeSpecifications";
 import BikeTab from "./BikeTab";
 import BackHeader from "../components/BackHeader";
+import Collection from "../pages/Collection";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +29,15 @@ export default function StackNavigation() {
                     headerBackVisible: false,
                     headerShadowVisible: false,
                     header: (props) => (<BackHeader title={"PRODUCT DETAIL"} />)
+                }}
+            />
+            <Stack.Screen
+                name="collection"
+                component={Collection}
+                options={{
+                    headerBackVisible: false,
+                    headerShadowVisible: false,
+                    header: (props) => (<BackHeader title={"COLLECTION"} />)
                 }}
             />
         </Stack.Navigator>

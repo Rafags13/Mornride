@@ -7,6 +7,7 @@ import ImageBanner from "../ImageBanner";
 import { ImageProps } from "../../util/model/ImageProps";
 import Button from "../Button";
 import { globalStyles } from "../../util/styles/global";
+import { useNavigation } from "@react-navigation/native";
 
 type Props = {
     images: ImageProps[],
@@ -19,6 +20,7 @@ export default function ImageSlider({ images }: Props) {
     const size = width * 0.8;
     const x = useSharedValue(0);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const navigator = useNavigation<any>();
 
     const onScroll = useAnimatedScrollHandler({
         onScroll: event => {
@@ -74,7 +76,10 @@ export default function ImageSlider({ images }: Props) {
                                 source={image.image}
                                 description={image.description}
                                 button={
-                                    <Button onClick={image.button.onClick} typeOfButton={image.button.typeOfButton} >
+                                    <Button onClick={() => {
+
+                                        navigator.navigate('collection', { collection: image.button.collection })
+                                    }} typeOfButton={image.button.typeOfButton} >
                                         <Text style={globalStyles.commonText}>{image.button.label}</Text>
                                     </Button>
                                 }
