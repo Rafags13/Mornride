@@ -12,7 +12,15 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100
   },
+  nameOfUser: {
+    ...globalStyles.bigTitle,
+    alignSelf: 'center'
+  },
   userByText: {
+    ...globalStyles.title,
+    alignSelf: 'center'
+  },
+  timeToUse: {
     ...globalStyles.commonText,
     color: '#008000'
   },
