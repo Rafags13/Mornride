@@ -53,16 +53,10 @@ function SkeletonHome() {
 
 export default function Home() {
     const [bikes, setBikes] = useState(BikeProfiles);
+    const [filter, setFilter] = useState<string>('');
     const { isLoading } = useFakeApiCallDelay(1000);
-    const filteredBikes = useCallback((filter: string) => {
-        if (filter === '') {
-            setBikes(BikeProfiles);
-            return;
-        }
 
-        const filtered = BikeProfiles.filter(bike => bike.categories.find(category => category === filter));
-        setBikes(filtered);
-    }, []);
+    const bikesFiltered = filter !== '' ? BikeProfiles.filter(bike => bike.categories.find(category => category === filter)) : BikeProfiles;
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
@@ -74,7 +68,9 @@ export default function Home() {
                 <>
                     <ImageSlider images={images} />
 
-                    <ListFilterButton filters={labelsFilter} onChangeFilter={filteredBikes} />
+                    <ListFilterButton filters={labelsFilter} onChangeFilter={(filter) => {
+                        setFilter(filter);
+                    }} />
 
                     <Text style={globalStyles.title}>Flash sale</Text>
 
@@ -86,7 +82,7 @@ export default function Home() {
                         <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
                     </View>
 
-                    <SaleBikesList bikeCards={bikes} />
+                    <SaleBikesList bikeCards={bikesFiltered} />
 
                     <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                         <Text style={globalStyles.title}>Collection</Text>
