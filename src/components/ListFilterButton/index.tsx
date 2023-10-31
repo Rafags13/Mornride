@@ -18,7 +18,6 @@ const ListFilterButton = (function ListFilterButton({ filters, onChangeFilter }:
             horizontal
             initialScrollIndex={currentIndexActivated}
             contentContainerStyle={styles.contentContainer}
-            style={styles.flatlist}
             ref={flatlistRef}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
