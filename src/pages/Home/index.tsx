@@ -18,6 +18,8 @@ import useFakeApiCallDelay from "../../hooks/useFakeApiCallDelay";
 import { Skeleton } from "moti/skeleton";
 import { getData } from "../../services/apiRequests";
 import { AxiosError } from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { HomeUserInformationsDto } from "../../util/model/dto/HomeUserInformationsDto";
 
 function SkeletonHome() {
     return (
@@ -56,24 +58,17 @@ function SkeletonHome() {
 export default function Home() {
     const [bikes, setBikes] = useState(BikeProfiles);
     const [filter, setFilter] = useState<string>('');
-    const { isLoading } = useFakeApiCallDelay(1000);
+    const { data, isLoading } = useQuery<HomeUserInformationsDto | Error>({
+        queryKey: ['GetBikesSale'], queryFn: async () => {
+            const response = await getData('Bike');
+
+            return response.data;
+        }
+    });
+
+    console.log(data);
 
     const bikesFiltered = filter !== '' ? BikeProfiles.filter(bike => bike.categories.find(category => category === filter)) : BikeProfiles;
-
-    useEffect(() => {
-        const onApiCall = async () => {
-            await getData('/bike').then((response) => {
-                console.log(response.data);
-            }).catch((error: Error | AxiosError) => {
-                console.log(error);
-            });
-        }
-
-        onApiCall();
-
-
-    }, []);
-
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
