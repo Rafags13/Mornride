@@ -34,7 +34,7 @@ export default function SaleBikesList({ bikeCards }: Props) {
             }}
             horizontal
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }: { item: BikeCardsDto, index: number }) => {
+            renderItem={({ item }: { item: BikeCardsDto, index: number }) => {
                 return (
                     <BikeCard key={item.id} bike={item} />
                 )

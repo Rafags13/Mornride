@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { View, Text, ScrollView, FlatList } from "react-native";
 import {
     set
@@ -16,6 +16,8 @@ import BikeProfiles, { images, labelsFilter } from "../../util/data/database";
 import { globalStyles } from "../../util/styles/global";
 import useFakeApiCallDelay from "../../hooks/useFakeApiCallDelay";
 import { Skeleton } from "moti/skeleton";
+import { getData } from "../../services/apiRequests";
+import { AxiosError } from "axios";
 
 function SkeletonHome() {
     return (
@@ -57,6 +59,21 @@ export default function Home() {
     const { isLoading } = useFakeApiCallDelay(1000);
 
     const bikesFiltered = filter !== '' ? BikeProfiles.filter(bike => bike.categories.find(category => category === filter)) : BikeProfiles;
+
+    useEffect(() => {
+        const onApiCall = async () => {
+            await getData('/bike').then((response) => {
+                console.log(response.data);
+            }).catch((error: Error | AxiosError) => {
+                console.log(error);
+            });
+        }
+
+        onApiCall();
+
+
+    }, []);
+
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
