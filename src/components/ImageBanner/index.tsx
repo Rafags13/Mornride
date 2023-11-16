@@ -3,7 +3,7 @@ import React, { ReactNode } from 'react'
 import styles from './style'
 
 type Props = {
-    source: ImageSourcePropType,
+    source: string,
     description: string,
     button?: ReactNode,
     isFirstItem?: boolean,
@@ -17,9 +17,9 @@ export default function ImageBanner({ source, description, button, isFirstItem =
         return (
             <TouchableOpacity style={{ flex: 1, height: 200 }}>
                 <ImageBackground
-                    source={source}
+                    source={{ uri: source }}
                     style={[style.imageCardContainer, { width: '100%' }]}
-                    imageStyle={{ opacity: 0.75, borderRadius: 20, }}
+                    imageStyle={{ borderRadius: 20, }}
                 >
                     <View style={[style.imageContentContainer, , { width: '100%' }]}>
                         <Text style={[style.description, { width: '100%' }]}>{description}</Text>
@@ -31,10 +31,10 @@ export default function ImageBanner({ source, description, button, isFirstItem =
 
     return (
         <ImageBackground
-            source={source}
+            source={{ uri: source }}
             style={style.imageCardContainer}
 
-            imageStyle={{ opacity: 0.75, borderRadius: 20, }}
+            imageStyle={{ borderRadius: 20, }}
         >
             <View style={style.imageContentContainer}>
                 <Text style={style.description}>{description}</Text>

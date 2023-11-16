@@ -24,13 +24,13 @@ const ListFilterButton = (function ListFilterButton({ filters, onChangeFilter }:
                 return (
                     <FilterButton
                         key={index}
-                        label={item.label}
-                        option={item.option}
+                        displayName={item.displayName}
+                        name={item.name}
                         activated={currentIndexActivated === index}
                         setActivated={() => {
                             setCurrentIndexActivated(index);
                             flatlistRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5 });
-                            onChangeFilter(item.option);
+                            onChangeFilter(item.name);
                         }}
                     />
                 )

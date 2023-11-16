@@ -73,14 +73,13 @@ export default function ImageSlider({ images }: Props) {
                         return (
                             <ImageBanner
                                 key={key}
-                                source={image.image}
+                                source={image.imageUrl}
                                 description={image.description}
                                 button={
                                     <Button onClick={() => {
-
-                                        navigator.navigate('collection', { collection: image.button.collection })
-                                    }} typeOfButton={image.button.typeOfButton} >
-                                        <Text style={globalStyles.commonText}>{image.button.label}</Text>
+                                        navigator.navigate('collection', { collection: image.collection })
+                                    }} typeOfButton={"info"} >
+                                        <Text style={globalStyles.commonText}>Lets See</Text>
                                     </Button>
                                 }
                                 isFirstItem={isFirstItem}

@@ -11,7 +11,7 @@ import Link from "../../components/Link";
 import SaleBikesList from "../../components/SaleBikesList";
 import ImageBanner from "../../components/ImageBanner";
 
-import BikeProfiles, { images, labelsFilter } from "../../util/data/database";
+import BikeProfiles from "../../util/data/database";
 
 import { globalStyles } from "../../util/styles/global";
 import useFakeApiCallDelay from "../../hooks/useFakeApiCallDelay";
@@ -57,18 +57,16 @@ function SkeletonHome() {
 
 export default function Home() {
     const [bikes, setBikes] = useState(BikeProfiles);
-    const [filter, setFilter] = useState<string>('');
-    const { data, isLoading } = useQuery<HomeUserInformationsDto | Error>({
+    const [filter, setFilter] = useState<string>('all');
+    const { data, isLoading } = useQuery<HomeUserInformationsDto>({
         queryKey: ['GetBikesSale'], queryFn: async () => {
-            const response = await getData('Bike');
+            const response = await getData('User');
 
             return response.data;
         }
     });
 
-    console.log(data);
-
-    const bikesFiltered = filter !== '' ? BikeProfiles.filter(bike => bike.categories.find(category => category === filter)) : BikeProfiles;
+    const bikesFiltered = filter !== 'all' ? data?.bikes.filter(bike => bike.categoryNames.find(category => category === filter)) : data?.bikes;
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
@@ -78,9 +76,9 @@ export default function Home() {
                 </>
             ) : (
                 <>
-                    <ImageSlider images={images} />
+                    <ImageSlider images={data!.banners} />
 
-                    <ListFilterButton filters={labelsFilter} onChangeFilter={(filter) => {
+                    <ListFilterButton filters={data!.categories} onChangeFilter={(filter) => {
                         setFilter(filter);
                     }} />
 
@@ -94,7 +92,9 @@ export default function Home() {
                         <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
                     </View>
 
-                    <SaleBikesList bikeCards={bikesFiltered} />
+                    {bikesFiltered && (
+                        <SaleBikesList bikeCards={bikesFiltered} />
+                    )}
 
                     <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                         <Text style={globalStyles.title}>Collection</Text>
@@ -103,7 +103,7 @@ export default function Home() {
                     </View>
 
                     <ImageBanner
-                        source={require('../../../assets/mountain2.jpg')}
+                        source={data!.banners[0].imageUrl}
                         description={'See our new stock of mountain bikes and ride it!'}
                     />
 

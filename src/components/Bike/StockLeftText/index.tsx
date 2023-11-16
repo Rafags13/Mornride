@@ -8,8 +8,8 @@ type Props = {
 
 export default function StockLeftText({ stock }: Props) {
     return (
-        <Text style={styles.text}>
-            {stock} stock bicycle left
+        <Text style={stock > 10 ? styles.textHigherTen : styles.textUnderTen}>
+            {stock} on stock bicycle left
         </Text>
     )
 }

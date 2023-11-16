@@ -10,7 +10,6 @@ const styles = (isFirstItem: boolean, isLastItem: boolean) => StyleSheet.create(
         width: size,
         borderRadius: 20,
         height: 200,
-        backgroundColor: '#010101',
     },
     imageContentContainer: {
         flex: 1,

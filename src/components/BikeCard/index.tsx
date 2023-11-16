@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default function BikeCard({ bike }: Props) {
-    const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
+    // const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
     const bikeDisplayedIsFavorited = useAppSelector((state) => state.favoriteBikes.bikes.find(x => x.id === bike.id) !== undefined);
     const dispatch = useAppDispatch();
 
@@ -23,10 +23,10 @@ export default function BikeCard({ bike }: Props) {
         navigation.navigate('bikeSpecification', { bikeId: bike.id })
     }
 
-    function setCurrentImageByColor(color: string) {
-        const current = bike.bikes.find(bike => bike.colorHex === color);
-        setCurrentPhoto(current?.images[0]);
-    }
+    // function setCurrentImageByColor(color: string) {
+    //     const current = bike.bikes.find(bike => bike.colorHex === color);
+    //     setCurrentPhoto(current?.images[0]);
+    // }
 
     return (
         <Bike.Root>
@@ -40,7 +40,7 @@ export default function BikeCard({ bike }: Props) {
 
                         dispatch(removeFromFavorite(bike.id));
                     }} />
-                    <Bike.Image source={currentPhoto} />
+                    <Bike.Image source={{ uri: bike.imageDiplayBikeUrl }} />
                 </Bike.Display>
 
                 <Bike.Stock stock={bike.stock} />
@@ -50,7 +50,8 @@ export default function BikeCard({ bike }: Props) {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Bike.Colors
                     colors={bike.avaliableColors}
-                    setCurrentColor={(color) => { setCurrentImageByColor(color) }}
+                    setCurrentColor={(color) => { }}
+                // TODO: implement this when found another bike with same color
                 />
                 <Text style={{ color: '#666', fontWeight: '700' }}>
                     {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}
