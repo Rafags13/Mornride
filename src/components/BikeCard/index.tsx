@@ -51,7 +51,7 @@ export default function BikeCard({ bike }: Props) {
                 <Bike.Colors
                     colors={bike.avaliableColors}
                     setCurrentColor={(color) => { }}
-                // TODO: implement this when found another bike with same color
+                // TODO: implement this when add another bike with same color
                 />
                 <Text style={{ color: '#666', fontWeight: '700' }}>
                     {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}

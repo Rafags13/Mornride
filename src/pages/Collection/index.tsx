@@ -3,23 +3,43 @@ import { View, Text, ScrollView } from "react-native";
 import { capitalizeFirstLetter } from "../../util/functions";
 import { globalStyles } from "../../util/styles/global";
 import BikeCard from "../../components/BikeCard";
-import BikeProfiles from "../../util/data/database";
+import { useQuery } from "@tanstack/react-query";
+import { getData } from "../../services/apiRequests";
+import { HomeBikeDto } from "../../util/model/dto/HomeBikeDto";
+
+type ListBikeCollectionProps = HomeBikeDto[];
+
 
 export default function Collection() {
-  const { params } = useRoute<RouteProp<{ params: { collection: string } }, 'params'>>();
-  const bikesFiltered = BikeProfiles.filter(profiles => profiles.categories.find(category => category === params.collection));
+  const { params: { collection } } = useRoute<RouteProp<{ params: { collection: string } }, 'params'>>();
+  const { data, isLoading, isError } = useQuery<ListBikeCollectionProps>({
+    queryKey: [collection], queryFn: async () => {
+      const response = await getData(`Bike/${collection}`);
+      return response.data;
+    }
+  });
+
+  if (isError) {
+    return (
+      <View>
+        <Text>Não foi possível carregar os dados.</Text>
+      </View>
+    )
+  }
 
   return (
-    <ScrollView style={{ padding: 10, marginTop: 20 }}>
-      <Text style={globalStyles.title}>
-        {capitalizeFirstLetter(params.collection)} Bikes
+    <ScrollView style={{ padding: 10 }}>
+      <Text style={globalStyles.bigTitle}>
+        {capitalizeFirstLetter(collection)} Bikes
       </Text>
+      {isLoading ? (<></>) : (
+        <View style={{ gap: 25, marginVertical: 15 }}>
+          {data?.map(bikeProfile => (
+            <BikeCard key={bikeProfile.id} bike={bikeProfile} />
+          ))}
+        </View>
+      )}
 
-      <View style={{ gap: 25, marginTop: 15 }}>
-        {bikesFiltered.map(bikeProfile => (
-          <BikeCard key={bikeProfile.id} bike={bikeProfile} />
-        ))}
-      </View>
 
     </ScrollView>
   )

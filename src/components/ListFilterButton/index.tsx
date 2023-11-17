@@ -11,6 +11,7 @@ type Props = {
 const ListFilterButton = (function ListFilterButton({ filters, onChangeFilter }: Props) {
     const [currentIndexActivated, setCurrentIndexActivated] = useState(0);
     const flatlistRef = useRef<FlatList>(null);
+    // TODO Solve the bug with rerender in this component
 
     return (
         <FlatList
@@ -40,4 +41,4 @@ const ListFilterButton = (function ListFilterButton({ filters, onChangeFilter }:
     )
 })
 
-export default memo(ListFilterButton)
+export default memo(ListFilterButton, ((prev, next) => prev.filters === next.filters))

@@ -9,17 +9,14 @@ import ListFilterButton from "../../components/ListFilterButton";
 import ClockSale from "../../components/ClockSale";
 import Link from "../../components/Link";
 import SaleBikesList from "../../components/SaleBikesList";
-import ImageBanner from "../../components/ImageBanner";
-
-import BikeProfiles from "../../util/data/database";
 
 import { globalStyles } from "../../util/styles/global";
-import useFakeApiCallDelay from "../../hooks/useFakeApiCallDelay";
 import { Skeleton } from "moti/skeleton";
 import { getData } from "../../services/apiRequests";
-import { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 import { HomeUserInformationsDto } from "../../util/model/dto/HomeUserInformationsDto";
+import { Banner } from "../../components/Banner";
+import { useNavigation } from "@react-navigation/native";
 
 function SkeletonHome() {
     return (
@@ -56,7 +53,6 @@ function SkeletonHome() {
 }
 
 export default function Home() {
-    const [bikes, setBikes] = useState(BikeProfiles);
     const [filter, setFilter] = useState<string>('all');
     const { data, isLoading } = useQuery<HomeUserInformationsDto>({
         queryKey: ['GetBikesSale'], queryFn: async () => {
@@ -65,6 +61,7 @@ export default function Home() {
             return response.data;
         }
     });
+    const { navigate } = useNavigation<any>();
 
     const bikesFiltered = filter !== 'all' ? data?.bikes.filter(bike => bike.categoryNames.find(category => category === filter)) : data?.bikes;
 
@@ -102,10 +99,18 @@ export default function Home() {
                         <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
                     </View>
 
-                    <ImageBanner
+                    {/* <ImageBanner
                         source={data!.banners[0].imageUrl}
                         description={'See our new stock of mountain bikes and ride it!'}
-                    />
+                    /> */}
+
+                    <Banner.TouchableView onClick={() => {
+                        navigate('collection', { collection: data?.banners[0].collection })
+                    }}>
+                        <Banner.View source={data!.banners[0].imageUrl} styles={{ width: '100%' }}>
+                            <Banner.Text description={data!.banners[0].description} isDivided={false} />
+                        </Banner.View>
+                    </Banner.TouchableView>
 
                     <View style={{ marginVertical: 50 }} />
                 </>
