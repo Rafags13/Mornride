@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { useState } from "react";
+import { View, Text, ScrollView, } from "react-native";
 import {
     set
 } from 'date-fns';
@@ -98,11 +98,6 @@ export default function Home() {
 
                         <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
                     </View>
-
-                    {/* <ImageBanner
-                        source={data!.banners[0].imageUrl}
-                        description={'See our new stock of mountain bikes and ride it!'}
-                    /> */}
 
                     <Banner.TouchableView onClick={() => {
                         navigate('collection', { collection: data?.banners[0].collection })

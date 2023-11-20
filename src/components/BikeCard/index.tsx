@@ -40,7 +40,7 @@ export default function BikeCard({ bike }: Props) {
 
                         dispatch(removeFromFavorite(bike.id));
                     }} />
-                    <Bike.Image source={{ uri: bike.imageDiplayBikeUrl }} />
+                    <Bike.Image source={bike.imageDiplayBikeUrl} />
                 </Bike.Display>
 
                 <Bike.Stock stock={bike.stock} />
