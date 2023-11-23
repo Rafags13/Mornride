@@ -7,7 +7,7 @@ import { convertCaterogiesToLabel, convertNumberFromTwoDecimals } from "../../ut
 import BuyMenu from "../../components/BuyMenu";
 import { Bike } from "../../components/Bike";
 import { useAppDispatch, useAppSelector } from "../../apps/hooks";
-import { addFromFavorite, removeFromFavorite } from "../../features/FavoriteBikes/FavoriteBikesSlice";
+import { FavoriteBikesProps, addFromFavorite, removeFromFavorite } from "../../features/FavoriteBikes/FavoriteBikesSlice";
 import { Skeleton } from "moti/skeleton";
 import { useQuery } from "@tanstack/react-query";
 import { BikeProfileDto } from "../../util/model/dto/BikeProfileDto";
@@ -79,7 +79,14 @@ export default function BikeSpecification() {
 
                         <Bike.Favorite isFavorited={bikeDisplayedIsFavorited} containerStyle={styles.heartBackground} setIsFavorited={(favorite) => {
                             if (favorite) {
-                                dispatch(addFromFavorite(bikeId));
+                                var bikeToFavorite: FavoriteBikesProps = {
+                                    id: bikeId,
+                                    title: data?.title ?? "",
+                                    currentBikeImageUrl: data?.images[0].imageUrl ?? "",
+                                    stock: data?.stock ?? 0,
+                                    price: data?.price ?? 0
+                                }
+                                dispatch(addFromFavorite(bikeToFavorite));
                                 return;
                             }
 

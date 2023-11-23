@@ -23,11 +23,11 @@ export default function FavoriteBikeList({ bikes }: FavoriteBikeListProps) {
         <Bike.Root>
           <Bike.Touchable style={{ gap: 5 }} onPress={() => { redirectToFavoritedBike(bike.id); }}>
             <Bike.Display style={{ padding: 5 }}>
-              <Bike.Image source={bike.bikes[0].images[0]} />
+              <Bike.Image source={bike.currentBikeImageUrl} />
             </Bike.Display>
-            <Bike.Stock stock={bike.amountOnStock || 0} />
+            <Bike.Stock stock={bike.stock} />
             <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-              <Bike.Title title={bike.titleLabel} />
+              <Bike.Title title={bike.title} />
               <Text style={{ color: '#666', fontWeight: '700' }}>
                 {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}
               </Text>

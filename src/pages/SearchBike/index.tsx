@@ -2,7 +2,7 @@ import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Background from '../../components/Background'
 import { globalStyles } from '../../util/styles/global'
-import BikeProfiles from '../../util/data/database'
+// import BikeProfiles from '../../util/data/database'
 import BikeCard from '../../components/BikeCard'
 import Feather from '@expo/vector-icons/Feather';
 import styles from './style'
@@ -10,9 +10,9 @@ import styles from './style'
 export default function SearchBike() {
     const [search, setSearch] = useState('');
 
-    const filteredBikes = search.length > 0 ?
-        BikeProfiles.filter(bikes => bikes.title.toLowerCase().includes(search.toLowerCase()))
-        : [];
+    // const filteredBikes = search.length > 0 ?
+    //     BikeProfiles.filter(bikes => bikes.title.toLowerCase().includes(search.toLowerCase()))
+    //     : [];
 
     return (
         <Background>
@@ -31,7 +31,7 @@ export default function SearchBike() {
                 )}
             </View>
 
-            <FlatList
+            {/* <FlatList
                 data={filteredBikes}
                 renderItem={({ item }) => (<BikeCard key={item.id} bike={item} />)}
                 keyExtractor={(bike) => bike.title}
@@ -46,7 +46,7 @@ export default function SearchBike() {
                         We promise that we'll send to you when it happen.
                     </Text>
                 )
-            }
+            } */}
 
         </Background >
     )

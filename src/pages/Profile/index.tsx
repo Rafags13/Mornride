@@ -3,7 +3,6 @@ import { globalStyles } from '../../util/styles/global'
 import styles from './style'
 import SaleBikesList from '../../components/SaleBikesList';
 
-import BikeProfiles from "../../util/data/database";
 import { Bike } from '../../components/Bike'
 import Link from '../../components/Link'
 import useFakeApiCallDelay from '../../hooks/useFakeApiCallDelay';
@@ -11,7 +10,7 @@ import { Skeleton } from 'moti/skeleton';
 
 export default function Profile() {
     const { isLoading } = useFakeApiCallDelay(5000);
-    const lastBoughtBike = BikeProfiles[0];
+    // const lastBoughtBike = BikeProfiles[0];
 
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -42,9 +41,9 @@ export default function Profile() {
                     <Skeleton colorMode='light' width={150}>
                         <Text style={globalStyles.title}>Last Seen Bikes</Text>
                     </Skeleton>
-                    <Skeleton colorMode='light'>
+                    {/* <Skeleton colorMode='light'>
                         <SaleBikesList bikeCards={BikeProfiles} />
-                    </Skeleton>
+                    </Skeleton> */}
                 </View>
 
                 <View style={styles.lastBoughtContainer}>
@@ -57,11 +56,11 @@ export default function Profile() {
 
                     <Skeleton colorMode='light'>
                         <Bike.Root>
-                            <Bike.Display style={{ padding: 10 }}>
+                            {/* <Bike.Display style={{ padding: 10 }}>
                                 <Bike.Image source={require('../../../assets/bike3.png')} />
-                            </Bike.Display>
+                            </Bike.Display> */}
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                            {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Bike.Title title={lastBoughtBike.title} />
                                 <Text style={globalStyles.commonText}>(1)</Text>
                             </View>
@@ -69,7 +68,7 @@ export default function Profile() {
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Bike.Colors colors={[]} />
                                 <Bike.Price price={lastBoughtBike.price} />
-                            </View>
+                            </View> */}
                         </Bike.Root>
                     </Skeleton>
                 </View>

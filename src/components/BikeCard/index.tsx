@@ -13,7 +13,6 @@ type Props = {
 }
 
 export default function BikeCard({ bike }: Props) {
-    // const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
     const bikeDisplayedIsFavorited = useAppSelector((state) => state.favoriteBikes.bikes.find(x => x.id === bike.id) !== undefined);
     const dispatch = useAppDispatch();
 
@@ -34,7 +33,15 @@ export default function BikeCard({ bike }: Props) {
                 <Bike.Display style={{ padding: 5 }}>
                     <Bike.Favorite isFavorited={bikeDisplayedIsFavorited} setIsFavorited={(favorited) => {
                         if (favorited) {
-                            dispatch(addFromFavorite(bike.id));
+                            var bikeToFavorite: FavoriteBikesProps = {
+                                id: bike.id,
+                                title: bike.title,
+                                currentBikeImageUrl: bike.imageDiplayBikeUrl,
+                                stock: bike.stock,
+                                price: bike.price
+                            }
+
+                            dispatch(addFromFavorite(bikeToFavorite));
                             return;
                         }
 
