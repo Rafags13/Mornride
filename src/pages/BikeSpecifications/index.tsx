@@ -127,13 +127,7 @@ export default function BikeSpecification() {
                 </ScrollView>
             )}
 
-            <BuyMenu completeBike={{
-                id: bikeId,
-                title: data?.title ?? "",
-                price: data?.price ?? 0,
-                avaliableColors: data?.avaliableColors ?? [],
-                imageUrl: data?.images[0].imageUrl ?? ""
-            }} />
+            <BuyMenu bikeId={bikeId} />
         </View >
     )
 }

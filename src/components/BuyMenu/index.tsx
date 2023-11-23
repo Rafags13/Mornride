@@ -4,8 +4,6 @@ import { globalStyles } from '../../util/styles/global'
 import styles from './style'
 import Button from '../Button'
 import CounterButton from '../CounterButton'
-import { addFromCart } from '../../features/Cart/CartSlice'
-import { useAppDispatch } from '../../apps/hooks';
 import { Snackbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native'
 import { BikeCartDto } from '../../util/model/dto/BikeCartDto'
@@ -13,10 +11,10 @@ import { postData } from '../../services/apiRequests'
 
 type Props = {
     style?: StyleProp<ViewStyle>,
-    completeBike: Omit<BikeCartDto, "amount">
+    bikeId: number
 }
 
-export default function BuyMenu({ style, completeBike }: Props) {
+export default function BuyMenu({ style, bikeId }: Props) {
     const [counter, setCounter] = useState<number>(1);
     const [visible, setVisible] = React.useState(false);
     const counterHasZeroInCount = counter === 0;
@@ -34,18 +32,16 @@ export default function BuyMenu({ style, completeBike }: Props) {
         setVisible(true);
 
         if (counter > 0) {
-            const newBikeToCart: BikeCartDto & { unitaryPrice: number, bikeId: number } = {
-                ...completeBike,
-                bikeId: completeBike.id,
-                unitaryPrice: completeBike.price,
-                amount: counter
+            var addBike = {
+                bikeId,
+                amount: counter,
             }
-            await postData('/Cart', newBikeToCart);
+            await postData('/Cart', addBike);
         }
     };
 
     const onBuyNow = useCallback(() => {
-        console.log(`Comprando a bike ${completeBike.title}`)
+        console.log(`Comprando a bike ${bikeId}`)
     }, []);
 
     return (
