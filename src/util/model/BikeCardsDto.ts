@@ -1,5 +1,3 @@
-// import { BikeImageDto } from "./BikeImageDto"
-
 export type BikeCardsDto = {
     id: number,
     imageDiplayBikeUrl: string,
