@@ -5,6 +5,8 @@ import BikeSpecification from "../pages/BikeSpecifications";
 import BikeTab from "./BikeTab";
 import BackHeader from "../components/BackHeader";
 import Collection from "../pages/Collection";
+import SelectAddress from "../pages/SelectAddress";
+import FinishBuy from "../pages/FinishBuy";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,6 +40,24 @@ export default function StackNavigation() {
                     headerBackVisible: false,
                     headerShadowVisible: false,
                     header: (props) => (<BackHeader title={"COLLECTION"} />)
+                }}
+            />
+            <Stack.Screen
+                name="addressSelection"
+                component={SelectAddress}
+                options={{
+                    headerBackVisible: false,
+                    headerShadowVisible: false,
+                    header: (props) => (<BackHeader title={"ADDRESS"} />)
+                }}
+            />
+            <Stack.Screen
+                name="finishPurchase"
+                component={FinishBuy}
+                options={{
+                    headerBackVisible: false,
+                    headerShadowVisible: false,
+                    header: (props) => (<BackHeader title={"PURCHASE"} />)
                 }}
             />
         </Stack.Navigator>

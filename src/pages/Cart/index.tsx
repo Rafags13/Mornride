@@ -5,8 +5,10 @@ import Button from '../../components/Button'
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { BikeCartDto } from '../../util/model/dto/BikeCartDto';
 import { getData } from '../../services/apiRequests';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
 import { useCallback } from 'react';
+import { useAppDispatch } from '../../apps/hooks';
+import { addBikeIds } from '../../features/PurchaseBikes/PurchaseBikesSlide';
 
 const { Root, Display, Image, Colors, Title, Price } = Bike;
 
@@ -14,6 +16,8 @@ const height = Dimensions.get('screen').height * 0.65;
 const tabSize = 60;
 
 export default function Cart() {
+  const navigator = useNavigation<any>();
+  const dispatch = useAppDispatch();
   useFocusEffect(useCallback(() => {
     mutate();
   }, []));
@@ -63,7 +67,11 @@ export default function Cart() {
 
             {data.length > 0 && (
               <View style={{ position: 'absolute', bottom: 0, width: '100%', alignSelf: 'center', marginBottom: tabSize + 30 }}>
-                <Button onClick={() => { }}>
+                <Button onClick={() => {
+                  const ids = data?.map((bike) => bike.id);
+                  dispatch(addBikeIds(ids));
+                  navigator.navigate('addressSelection', { ids });
+                }}>
                   <Text>Finish Buy</Text>
                 </Button>
               </View>

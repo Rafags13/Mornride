@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import favoriteBikesReducer from '../features/FavoriteBikes/FavoriteBikesSlice';
+import purchaseBikesReducer from '../features/PurchaseBikes/PurchaseBikesSlide';
 
 export const store = configureStore({
     reducer: {
         favoriteBikes: favoriteBikesReducer,
+        purchaseBikes: purchaseBikesReducer,
     },
 })
 
