@@ -57,7 +57,7 @@ export default function StackNavigation() {
                 options={{
                     headerBackVisible: false,
                     headerShadowVisible: false,
-                    header: (props) => (<BackHeader title={"PURCHASE"} />)
+                    header: (props) => (<BackHeader title={"CONFIRM"} />)
                 }}
             />
         </Stack.Navigator>

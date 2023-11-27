@@ -14,8 +14,7 @@ export default function SelectAddress() {
   const dispatch = useAppDispatch();
 
   const setSelectedIndex = useCallback((zipCode: string) => {
-    dispatch(addSelectedAddress(zipCode))
-    console.log(zipCode);
+    dispatch(addSelectedAddress(zipCode));
   }, []);
 
   return (
@@ -30,8 +29,10 @@ export default function SelectAddress() {
 
         <Button onClick={() => {
           navigate('finishPurchase');
-        }} >
-          <Text style={globalStyles.commonText} >Finish Buy</Text>
+        }}
+          style={{ width: '90%', alignSelf: 'center' }}
+        >
+          <Text style={globalStyles.commonText}>Continue</Text>
         </Button>
       </View>
     </View>
