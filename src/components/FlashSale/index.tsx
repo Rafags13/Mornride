@@ -5,11 +5,11 @@ import ListFilterButton from '../ListFilterButton';
 import { globalStyles } from '../../util/styles/global';
 import { set } from 'date-fns';
 import ClockSale from '../ClockSale';
-import { HomeBikeDto } from '../../util/model/dto/HomeBikeDto';
 import SaleBikesList from '../SaleBikesList';
 import Link from '../Link';
+import { BikeCardsDto } from '../../util/model/BikeCardsDto';
 
-export default function FlashSale({ categories, bikes }: { categories: HomeCategoryDto[], bikes: HomeBikeDto[] }) {
+export default function FlashSale({ categories, bikes }: { categories: HomeCategoryDto[], bikes: BikeCardsDto[] }) {
   const [filter, setFilter] = useState<string>('all');
   const bikesFiltered = filter !== 'all' ? bikes.filter(bike => bike.categoryNames.find(category => category === filter)) : bikes;
 

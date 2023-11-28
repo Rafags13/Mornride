@@ -1,7 +1,7 @@
-import { BikeImagesProfileDto } from "./BikeImagesProfileDto"
+import { BikeImagesByColorDto } from "./BikeImagesByColorDto"
 
 export type BikeProfileDto = {
-  images: BikeImagesProfileDto[],
+  images: BikeImagesByColorDto[],
   title: string
   stock: number
   categories: string[]

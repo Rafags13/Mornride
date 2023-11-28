@@ -10,7 +10,6 @@ import AutoComplete, { AutoCompleteItem } from '../../components/AutoComplete'
 import { CommonActions, useIsFocused, useNavigation } from '@react-navigation/native'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { getData } from '../../services/apiRequests'
-import { HomeBikeDto } from '../../util/model/dto/HomeBikeDto'
 
 export default function SearchBike() {
     const [search, setSearch] = useState('');

@@ -14,6 +14,7 @@ import { BikeProfileDto } from "../../util/model/dto/BikeProfileDto";
 import { getData } from "../../services/apiRequests";
 import { PositionOfBike } from "../../util/model/enum/PositionOfBike";
 import DisplayBikePanel from "../../components/DisplayBikePanel";
+import { BikeImagesProfileDto } from "../../util/model/dto/BikeImagesProfileDto";
 
 function BikeSkeleton() {
     return (
@@ -50,10 +51,13 @@ function BikeSkeleton() {
 export default function BikeSpecification() {
     const { params: { bikeId } } = useRoute<RouteProp<{ params: { bikeId: number } }, 'params'>>();
 
+    const [currentImages, setCurrentImages] = useState<BikeImagesProfileDto[]>([]);
     const { data, isLoading } = useQuery<BikeProfileDto>({
         queryKey: [bikeId], queryFn: async () => {
             const response = await getData(`Bike/Profile/${bikeId}`);
-            return response.data;
+            const data = response.data as BikeProfileDto;
+            setCurrentImages(data.images[0].bikeImages);
+            return data;
         }
     });
 
@@ -61,8 +65,11 @@ export default function BikeSpecification() {
     const dispatch = useAppDispatch();
 
     const onCurrentColor = useCallback((color: string) => {
-        //Not implemented yet
-        // this funcionality requires add new bikes to system.
+        const currentImagesFromColor = data?.images.find(imageByColor => imageByColor.hexColor === color)?.bikeImages;
+
+        if (!currentImagesFromColor) return;
+
+        setCurrentImages(currentImagesFromColor);
     }, []);
 
     return (
@@ -72,7 +79,8 @@ export default function BikeSpecification() {
             ) : (
                 <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 
-                    <DisplayBikePanel images={data!.images} />
+                    <DisplayBikePanel images={currentImages} />
+
 
                     <View style={styles.titleContainer}>
                         <Bike.Title title={data?.title || ''} size="large" />
@@ -82,7 +90,7 @@ export default function BikeSpecification() {
                                 var bikeToFavorite: FavoriteBikesProps = {
                                     id: bikeId,
                                     title: data?.title ?? "",
-                                    currentBikeImageUrl: data?.images[0].imageUrl ?? "",
+                                    currentBikeImageUrl: data?.images[0].bikeImages[0].imageUrl ?? "",
                                     stock: data?.stock ?? 0,
                                     price: data?.price ?? 0
                                 }

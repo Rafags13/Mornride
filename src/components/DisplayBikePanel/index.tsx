@@ -1,7 +1,7 @@
 import { View } from "react-native"
 import { BikeImagesProfileDto } from "../../util/model/dto/BikeImagesProfileDto"
 import { Bike } from "../Bike"
-import { useCallback, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import styles from "./style"
 import { PositionOfBike } from "../../util/model/enum/PositionOfBike"
 
@@ -15,9 +15,19 @@ export default function DisplayBikePanel({ images }: BikePanelProps) {
     position: PositionOfBike.FullBike
   });
 
-  const onSelectedImage = useCallback(({ imageUrl, position }: BikeImagesProfileDto) => {
+  const onSelectedImage = ({ imageUrl, position }: BikeImagesProfileDto) => {
     setCurrentDisplayPhoto({ imageUrl, position })
-  }, []);
+  };
+
+  useEffect(() => {
+    const updatePanelImage = {
+      imageUrl: images.find(image => image.position === PositionOfBike.FullBike)?.imageUrl ?? "",
+      position: PositionOfBike.FullBike
+    }
+
+    setCurrentDisplayPhoto(updatePanelImage);
+  }, [images])
+
   return (
     <>
       <Bike.Display>

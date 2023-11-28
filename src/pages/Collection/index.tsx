@@ -5,10 +5,9 @@ import { globalStyles } from "../../util/styles/global";
 import BikeCard from "../../components/BikeCard";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "../../services/apiRequests";
-import { HomeBikeDto } from "../../util/model/dto/HomeBikeDto";
+import { BikeCardsDto } from "../../util/model/BikeCardsDto";
 
-type ListBikeCollectionProps = HomeBikeDto[];
-
+type ListBikeCollectionProps = BikeCardsDto[];
 
 export default function Collection() {
   const { params: { collection } } = useRoute<RouteProp<{ params: { collection: string } }, 'params'>>();

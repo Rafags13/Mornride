@@ -1,6 +1,8 @@
+import { BikeImageByColorDto } from "./dto/BikeImageByColorDto"
+
 export type BikeCardsDto = {
     id: number,
-    imageDiplayBikeUrl: string,
+    imagesFromBikeByColor: BikeImageByColorDto[],
     title: string,
     stock: number,
     avaliableColors: string[],
