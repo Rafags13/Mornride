@@ -10,35 +10,36 @@ type Props = {
 
 const ListFilterButton = (function ListFilterButton({ filters, onChangeFilter }: Props) {
     const [currentIndexActivated, setCurrentIndexActivated] = useState(0);
-    const flatlistRef = useRef<FlatList>(null);
-    // TODO Solve the bug with rerender in this component
+    const flatlistRef = useRef<FlatList<FilterProps>>(null);
+
+    const setActivated = (name: string) => {
+        onChangeFilter(name);
+        const currentIndex = filters.findIndex(filter => filter.name === name);
+        setCurrentIndexActivated(currentIndex);
+        flatlistRef.current?.scrollToIndex({ animated: true, index: currentIndex, viewPosition: 0.5 });
+    };
 
     return (
         <FlatList
             data={filters}
             horizontal
-            initialScrollIndex={currentIndexActivated}
             contentContainerStyle={styles.contentContainer}
             ref={flatlistRef}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => {
                 return (
                     <FilterButton
-                        key={index}
+                        key={item.name}
                         displayName={item.displayName}
                         name={item.name}
                         activated={currentIndexActivated === index}
-                        setActivated={() => {
-                            setCurrentIndexActivated(index);
-                            flatlistRef.current?.scrollToIndex({ animated: true, index: index, viewPosition: 0.5 });
-                            onChangeFilter(item.name);
-                        }}
+                        setActivated={setActivated}
                     />
+
                 )
             }}
-            keyExtractor={(filter) => filter.option}
         />
     )
 })
 
-export default memo(ListFilterButton, ((prev, next) => prev.filters === next.filters))
+export default memo(ListFilterButton)

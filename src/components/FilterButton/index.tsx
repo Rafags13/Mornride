@@ -6,14 +6,14 @@ export type FilterProps = {
     displayName: string,
     name: string,
     activated?: boolean,
-    setActivated?: () => void
+    setActivated?: (name: string) => void
 }
 
 const FilterButton = ({ name, displayName, activated = false, setActivated = () => { } }: FilterProps) => {
     function onSendEventByFilter() {
-        setActivated();
-        // TODO: Logic here
+        setActivated(name);
     }
+
     return (
         <TouchableOpacity style={[styles.filterButtonContainer, activated ? styles.activated : styles.inactivated]}
             onPress={onSendEventByFilter}
@@ -23,4 +23,4 @@ const FilterButton = ({ name, displayName, activated = false, setActivated = () 
     )
 }
 
-export default memo(FilterButton, ((prev, next) => prev.activated === next.activated))
+export default memo(FilterButton, (prev, next) => prev.activated === next.activated)

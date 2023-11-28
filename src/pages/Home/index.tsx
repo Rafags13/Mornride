@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { View, Text, ScrollView, } from "react-native";
 import {
     set
@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { HomeUserInformationsDto } from "../../util/model/dto/HomeUserInformationsDto";
 import { Banner } from "../../components/Banner";
 import { useNavigation } from "@react-navigation/native";
+import FlashSale from "../../components/FlashSale";
 
 function SkeletonHome() {
     return (
@@ -53,7 +54,6 @@ function SkeletonHome() {
 }
 
 export default function Home() {
-    const [filter, setFilter] = useState<string>('all');
     const { data, isLoading } = useQuery<HomeUserInformationsDto>({
         queryKey: ['GetBikesSale'], queryFn: async () => {
             const response = await getData('User');
@@ -61,9 +61,8 @@ export default function Home() {
             return response.data;
         }
     });
-    const { navigate } = useNavigation<any>();
 
-    const bikesFiltered = filter !== 'all' ? data?.bikes.filter(bike => bike.categoryNames.find(category => category === filter)) : data?.bikes;
+    const { navigate } = useNavigation<any>();
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
@@ -75,23 +74,7 @@ export default function Home() {
                 <>
                     <ImageSlider images={data!.banners} />
 
-                    <ListFilterButton filters={data!.categories} onChangeFilter={(filter) => {
-                        setFilter(filter);
-                    }} />
-
-                    <Text style={globalStyles.title}>Flash sale</Text>
-
-                    <View style={{ flexDirection: 'row', gap: 15, marginTop: 5, alignItems: 'center' }}>
-                        <Text style={{ color: 'grey', fontSize: 13, }}>End of time</Text>
-
-                        <ClockSale timePromotion={set(new Date(), { hours: 10, minutes: 0, seconds: 0 })} />
-
-                        <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
-                    </View>
-
-                    {bikesFiltered && (
-                        <SaleBikesList bikeCards={bikesFiltered} />
-                    )}
+                    <FlashSale categories={data!.categories} bikes={data!.bikes} />
 
                     <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                         <Text style={globalStyles.title}>Collection</Text>
