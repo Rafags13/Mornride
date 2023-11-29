@@ -64,13 +64,13 @@ export default function BikeSpecification() {
     const bikeDisplayedIsFavorited = useAppSelector((state) => state.favoriteBikes.bikes.find(x => x.id === bikeId) !== undefined);
     const dispatch = useAppDispatch();
 
-    const onCurrentColor = useCallback((color: string) => {
-        const currentImagesFromColor = data?.images.find(imageByColor => imageByColor.hexColor === color)?.bikeImages;
+    const onCurrentColor = (color: string) => {
 
+        const currentImagesFromColor = data?.images.find(imageByColor => imageByColor.hexColor === color)?.bikeImages;
         if (!currentImagesFromColor) return;
 
         setCurrentImages(currentImagesFromColor);
-    }, []);
+    };
 
     return (
         <View style={{ flex: 1, paddingHorizontal: 20, backgroundColor: 'white' }}>
@@ -78,9 +78,9 @@ export default function BikeSpecification() {
                 <BikeSkeleton />
             ) : (
                 <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-
-                    <DisplayBikePanel images={currentImages} />
-
+                    {currentImages.length > 0 && (
+                        <DisplayBikePanel images={currentImages} />
+                    )}
 
                     <View style={styles.titleContainer}>
                         <Bike.Title title={data?.title || ''} size="large" />
