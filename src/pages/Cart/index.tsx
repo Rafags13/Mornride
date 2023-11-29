@@ -1,58 +1,92 @@
-import { View, Text, ScrollView, Dimensions, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, ScrollView, Dimensions } from 'react-native'
 import { globalStyles } from '../../util/styles/global'
-import { useAppDispatch, useAppSelector } from '../../apps/hooks'
 import { Bike } from '../../components/Bike'
 import Button from '../../components/Button'
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { removeFromCart } from '../../features/Cart/CartSlice'
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { BikeCartDto } from '../../util/model/dto/BikeCartDto';
+import { getData } from '../../services/apiRequests';
+import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
+import { useCallback, useEffect } from 'react';
+import { useAppDispatch } from '../../apps/hooks';
+import { addBikeIds } from '../../features/PurchaseBikes/PurchaseBikesSlide';
 
 const { Root, Display, Image, Colors, Title, Price } = Bike;
 
-const height = Dimensions.get('screen').height * 0.70;
+const height = Dimensions.get('screen').height * 0.65;
+const tabSize = 60;
 
 export default function Cart() {
-  const bikes = useAppSelector((state) => state.bikes.bikes);
-
+  const navigator = useNavigation<any>();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const focusListener = navigator.addListener('focus', () => {
+
+      mutate();
+    });
+    return () => {
+      navigator.removeListener('focus', focusListener);
+    };
+  }, []);
+
+  const { data, isSuccess, mutate, isPending } = useMutation<BikeCartDto[]>({
+    mutationFn: async () => {
+      const response = await getData("/Cart");
+      return response.data;
+    }
+  });
+
   return (
-    <View style={{ padding: 20, marginTop: 30, gap: 10 }}>
+    <View style={{ flex: 1, padding: 20, marginTop: 30, gap: 10 }}>
       <Text style={globalStyles.bigTitle}>Cart</Text>
-
-      {bikes.length === 0 && (
-        <Text style={globalStyles.commonText}>Nobody to see here...</Text>
-      )}
-
-      <ScrollView style={{ height: height, }}>
-        <View style={{ gap: 15, }}>
-          {bikes.map((bike) => (
-            <Root key={bike.id}>
-              <Display style={{ padding: 5 }}>
-                <TouchableOpacity onPress={() => { dispatch(removeFromCart(bike.id)) }} style={{ alignSelf: 'flex-end', margin: 10 }}>
+      {
+        !(isSuccess) || isPending ? (<></>) :
+          (<>
+            <ScrollView style={{ height: height }}>
+              <View style={{ gap: 15, }}>
+                {data.length === 0 ? (
+                  <Text style={globalStyles.commonText}>Nothing to see here..</Text>
+                ) : (
+                  data?.map((bike) => (
+                    <Root key={bike.id}>
+                      <Display style={{ padding: 5 }}>
+                        {/* <TouchableOpacity onPress={() => { dispatch(removeFromCart(bike.id)) }} style={{ alignSelf: 'flex-end', margin: 10 }}>
                   <FontAwesome name="trash-o" size={24} color='black' />
-                </TouchableOpacity>
-                <Image source={bike.imageUrl} />
-              </Display>
+                </TouchableOpacity> */}
+                        <Image source={bike.imageUrl} />
+                      </Display>
 
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Title title={bike.titleLabel} />
-                <Text style={globalStyles.commonText}>({bike.counting})</Text>
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Title title={bike.title} />
+                        <Text style={globalStyles.commonText}>({bike.amount})</Text>
+                      </View>
+
+                      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Colors colors={bike.avaliableColors} />
+                        <Price price={bike.price} />
+                      </View>
+                    </Root>
+                  ))
+                )}
+
               </View>
+            </ScrollView>
 
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Colors colors={bike.avaliableColors} />
-                <Price price={bike.price} />
+            {data.length > 0 && (
+              <View style={{ position: 'absolute', bottom: 0, width: '100%', alignSelf: 'center', marginBottom: tabSize + 30 }}>
+                <Button onClick={() => {
+                  const ids = data?.map((bike) => bike.id);
+                  dispatch(addBikeIds(ids));
+                  navigator.navigate('addressSelection', { ids });
+                }}>
+                  <Text>Finish Buy</Text>
+                </Button>
               </View>
-            </Root>
-          ))}
-        </View>
-      </ScrollView>
+            )}
+          </>
+          )
+      }
 
-      {bikes.length > 0 && (
-        <Button onClick={() => { }}>
-          <Text>Finish Buy</Text>
-        </Button>
-      )}
     </View>
   )
 }

@@ -15,12 +15,15 @@ import Favorites from '../pages/Favorites';
 import Notifications from '../pages/Notifications';
 import Profile from '../pages/Profile';
 import SearchBike from '../pages/SearchBike';
+import { useNavigation } from '@react-navigation/native';
 
 const Tab = AnimatedTabBarNavigator();
 
 const ICON_TAB_SIZE = 16;
 
 export default function BikeTab() {
+    const { navigate } = useNavigation<any>();
+
     return (
         <Tab.Navigator
             tabBarOptions={{
@@ -55,6 +58,7 @@ export default function BikeTab() {
                 })}
 
 
+
             />
 
             <Tab.Screen
@@ -69,8 +73,10 @@ export default function BikeTab() {
                             focused={focused}
                         />
                     ),
-                    title: 'Cart'
+                    title: 'Cart',
+
                 }}
+
 
             />
 

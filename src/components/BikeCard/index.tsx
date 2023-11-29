@@ -13,8 +13,8 @@ type Props = {
 }
 
 export default function BikeCard({ bike }: Props) {
-    const [currentPhoto, setCurrentPhoto] = useState(bike.bikes[0].images[0]);
     const bikeDisplayedIsFavorited = useAppSelector((state) => state.favoriteBikes.bikes.find(x => x.id === bike.id) !== undefined);
+    const [currentUrlPhotoByColor, setCurrentUrlPhotoByColor] = useState<string>(bike.imagesFromBikeByColor[0].imageUrl);
     const dispatch = useAppDispatch();
 
     const navigation = useNavigation<any>();
@@ -24,8 +24,13 @@ export default function BikeCard({ bike }: Props) {
     }
 
     function setCurrentImageByColor(color: string) {
-        const current = bike.bikes.find(bike => bike.colorHex === color);
-        setCurrentPhoto(current?.images[0]);
+        if (color === currentUrlPhotoByColor) return;
+
+        const currentImage = bike.imagesFromBikeByColor.find(image => image.hexColor === color)?.imageUrl;
+
+        if (currentImage) {
+            setCurrentUrlPhotoByColor(currentImage);
+        }
     }
 
     return (
@@ -34,13 +39,21 @@ export default function BikeCard({ bike }: Props) {
                 <Bike.Display style={{ padding: 5 }}>
                     <Bike.Favorite isFavorited={bikeDisplayedIsFavorited} setIsFavorited={(favorited) => {
                         if (favorited) {
-                            dispatch(addFromFavorite(bike.id));
+                            var bikeToFavorite: FavoriteBikesProps = {
+                                id: bike.id,
+                                title: bike.title,
+                                currentBikeImageUrl: currentUrlPhotoByColor,
+                                stock: bike.stock,
+                                price: bike.price
+                            }
+
+                            dispatch(addFromFavorite(bikeToFavorite));
                             return;
                         }
 
                         dispatch(removeFromFavorite(bike.id));
                     }} />
-                    <Bike.Image source={currentPhoto} />
+                    <Bike.Image source={currentUrlPhotoByColor} />
                 </Bike.Display>
 
                 <Bike.Stock stock={bike.stock} />
@@ -50,7 +63,8 @@ export default function BikeCard({ bike }: Props) {
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Bike.Colors
                     colors={bike.avaliableColors}
-                    setCurrentColor={(color) => { setCurrentImageByColor(color) }}
+                    setCurrentColor={setCurrentImageByColor}
+                // TODO: implement this when add another bike with same color
                 />
                 <Text style={{ color: '#666', fontWeight: '700' }}>
                     {`R$ ${convertNumberFromTwoDecimals(bike.price)}`}

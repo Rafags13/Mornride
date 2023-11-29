@@ -4,7 +4,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         borderWidth: 2,
         borderRadius: 10,
-        marginVertical: 15,
+        marginTop: 15,
         flexDirection: 'row',
         alignItems: 'center'
     }

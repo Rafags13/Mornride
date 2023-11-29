@@ -8,6 +8,7 @@ import { ImageProps } from "../../util/model/ImageProps";
 import Button from "../Button";
 import { globalStyles } from "../../util/styles/global";
 import { useNavigation } from "@react-navigation/native";
+import { Banner } from "../Banner";
 
 type Props = {
     images: ImageProps[],
@@ -71,21 +72,27 @@ export default function ImageSlider({ images }: Props) {
                         const isFirstItem = key === 0
                         const isLastItem = key === images.length - 1
                         return (
-                            <ImageBanner
-                                key={key}
-                                source={image.image}
-                                description={image.description}
-                                button={
-                                    <Button onClick={() => {
+                            // <ImageBanner
+                            //     key={key}
+                            //     source={image.imageUrl}
+                            //     description={image.description}
+                            //     button={
+                            //         <Button onClick={() => {
+                            //             navigator.navigate('collection', { collection: image.collection })
+                            //         }} typeOfButton={"info"} >
+                            //             <Text style={globalStyles.commonText}>Lets See</Text>
+                            //         </Button>
+                            //     }
+                            //     isFirstItem={isFirstItem}
+                            //     isLastItem={isLastItem}
+                            // />
+                            <View style={{ marginLeft: isFirstItem ? 10 : 0, marginRight: isLastItem ? 10 : 0 }} key={key}>
 
-                                        navigator.navigate('collection', { collection: image.button.collection })
-                                    }} typeOfButton={image.button.typeOfButton} >
-                                        <Text style={globalStyles.commonText}>{image.button.label}</Text>
-                                    </Button>
-                                }
-                                isFirstItem={isFirstItem}
-                                isLastItem={isLastItem}
-                            />
+                                <Banner.View source={image.imageUrl}>
+                                    <Banner.Text description={image.description} isDivided />
+                                    <Banner.Button collection={image.collection} />
+                                </Banner.View>
+                            </View>
                         )
                     }
                     )

@@ -4,10 +4,11 @@ import { globalStyles } from '../../util/styles/global'
 import styles from './style'
 import Button from '../Button'
 import CounterButton from '../CounterButton'
-import { addFromCart } from '../../features/Cart/CartSlice'
-import { useAppDispatch } from '../../apps/hooks';
 import { Snackbar } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
+import { postData } from '../../services/apiRequests'
+import { useAppDispatch } from '../../apps/hooks'
+import { addBikeIds } from '../../features/PurchaseBikes/PurchaseBikesSlide'
 
 type Props = {
     style?: StyleProp<ViewStyle>,
@@ -17,29 +18,35 @@ type Props = {
 export default function BuyMenu({ style, bikeId }: Props) {
     const [counter, setCounter] = useState<number>(1);
     const [visible, setVisible] = React.useState(false);
-    const counterHasZeroInCount = counter === 0;
     const dispatch = useAppDispatch();
+    const counterHasZeroInCount = counter === 0;
     const navigator = useNavigation<any>();
 
-    const onPurchaseRemoveInCounter = useCallback(() => {
+    const onPurchaseRemoveInCounter = () => {
         setCounter(purchaseCounter => purchaseCounter - 1);
-    }, []);
+    };
 
-    const onPurchaseAddInCounter = useCallback(() => {
+    const onPurchaseAddInCounter = () => {
         setCounter(purchaseCounter => purchaseCounter + 1);
-    }, []);
+    };
 
-    const onAddToCart = () => {
+    const onAddToCart = async () => {
         setVisible(true);
 
         if (counter > 0) {
-            dispatch(addFromCart({ bikeId, counting: counter }));
+            var addBike = {
+                bikeId,
+                amount: counter,
+            }
+            await postData('/Cart', addBike);
         }
     };
 
-    const onBuyNow = useCallback(() => {
-        console.log(`Comprando a bike ${bikeId}`)
-    }, []);
+    const onBuyNow = () => {
+        dispatch(addBikeIds([bikeId]));
+
+        navigator.navigate('finishPurchase', { bikeId, amount: counter });
+    };
 
     return (
         <View style={[styles.container, style]}>

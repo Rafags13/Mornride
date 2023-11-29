@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../../apps/store';
-import { CardProps } from '../../util/model/CardProps';
-import BikeProfiles from '../../util/data/database';
 
-export type FavoriteBikesProps = Omit<CardProps, 'counting'>;
+export type FavoriteBikesProps = {
+    id: number
+    title: string
+    currentBikeImageUrl: string
+    stock: number
+    price: number
+};
 interface FavoriteBikeState {
     bikes: FavoriteBikesProps[]
 }
@@ -16,18 +20,8 @@ export const FavoriteBikesSlice = createSlice({
     name: 'favorite',
     initialState,
     reducers: {
-        addFromFavorite: (state, action: PayloadAction<number>) => {
-            const currentBike = BikeProfiles.find(bike => bike.id === action.payload);
-            const newBike: FavoriteBikesProps = {
-                id: currentBike!.id,
-                imageUrl: currentBike!.currentBikeImage,
-                titleLabel: currentBike!.title,
-                avaliableColors: currentBike!.avaliableColors,
-                price: currentBike!.price,
-                bikes: currentBike!.bikes,
-                amountOnStock: currentBike?.stock
-            }
-            state.bikes.push(newBike);
+        addFromFavorite: (state, action: PayloadAction<FavoriteBikesProps>) => {
+            state.bikes.push(action.payload);
         },
         removeFromFavorite: (state, action: PayloadAction<number>) => {
             state.bikes = state.bikes.filter((bike) => bike.id !== action.payload);
@@ -37,6 +31,6 @@ export const FavoriteBikesSlice = createSlice({
 
 export const { addFromFavorite, removeFromFavorite } = FavoriteBikesSlice.actions;
 
-export const selectBikesInCart = (state: RootState) => state.bikes;
+export const selectBikesInCart = (state: RootState) => state.favoriteBikes;
 
 export default FavoriteBikesSlice.reducer;

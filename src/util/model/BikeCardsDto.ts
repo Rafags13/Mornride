@@ -1,15 +1,11 @@
-import { BikeImageDto } from "./BikeImageDto"
+import { BikeImageByColorDto } from "./dto/BikeImageByColorDto"
 
 export type BikeCardsDto = {
     id: number,
-    bikes: BikeImageDto[],
+    imagesFromBikeByColor: BikeImageByColorDto[],
     title: string,
-    description: string,
     stock: number,
     avaliableColors: string[],
-    rankAverage: number,
-    reviewCount: number,
-    categories: string[],
-    price: number,
-    currentBikeImage: any
+    categoryNames: string[],
+    price: number
 }

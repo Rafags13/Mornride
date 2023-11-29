@@ -3,15 +3,24 @@ import { globalStyles } from '../../util/styles/global'
 import styles from './style'
 import SaleBikesList from '../../components/SaleBikesList';
 
-import BikeProfiles from "../../util/data/database";
 import { Bike } from '../../components/Bike'
 import Link from '../../components/Link'
 import useFakeApiCallDelay from '../../hooks/useFakeApiCallDelay';
 import { Skeleton } from 'moti/skeleton';
+import React from 'react';
+import { UserProfileDto } from '../../util/model/dto/UserProfileDto';
+import { useQuery } from '@tanstack/react-query';
+import { getData } from '../../services/apiRequests';
 
 export default function Profile() {
-    const { isLoading } = useFakeApiCallDelay(5000);
-    const lastBoughtBike = BikeProfiles[0];
+    const { data, isLoading } = useQuery<UserProfileDto>({
+        queryKey: ['profile'], queryFn: async () => {
+            const response = await getData("/User/Profile");
+
+            return response.data;
+        }
+    });
+
 
     return (
         <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -25,15 +34,15 @@ export default function Profile() {
                     </Skeleton>
                     <View style={{ alignItems: 'center', gap: 10, marginVertical: 20 }}>
                         <Skeleton colorMode='light' width={250}>
-                            <Text style={styles.nameOfUser}>Rafael Veiga</Text>
+                            <Text style={styles.nameOfUser}>{data?.name}</Text>
                         </Skeleton>
                         <Skeleton colorMode='light' width={200}>
-                            <Text style={styles.userByText}>User by: <Text style={styles.timeToUse}>3 years.</Text></Text>
+                            <Text style={styles.userByText}>User by: <Text style={styles.timeToUse}>{data?.yearsFromContribute} years.</Text></Text>
                         </Skeleton>
                     </View>
 
                     <Skeleton colorMode='light' width={100}>
-                        <Text style={styles.premiumText}>Premium</Text>
+                        <Text style={styles.premiumText}>{data?.isPremiumMember ? 'premium' : ''}</Text>
                     </Skeleton>
 
                 </View>
@@ -43,7 +52,9 @@ export default function Profile() {
                         <Text style={globalStyles.title}>Last Seen Bikes</Text>
                     </Skeleton>
                     <Skeleton colorMode='light'>
-                        <SaleBikesList bikeCards={BikeProfiles} />
+                        {data?.lastSeenBikes && (
+                            <SaleBikesList bikeCards={data?.lastSeenBikes} />
+                        )}
                     </Skeleton>
                 </View>
 
@@ -56,21 +67,22 @@ export default function Profile() {
                     </Skeleton>
 
                     <Skeleton colorMode='light'>
-                        <Bike.Root>
-                            <Bike.Display style={{ padding: 10 }}>
-                                <Bike.Image source={require('../../../assets/bike3.png')} />
-                            </Bike.Display>
+                        {data?.lastPurchaseBike && (
+                            <Bike.Root>
+                                <Bike.Display style={{ padding: 10 }}>
+                                    <Bike.Image source={data?.lastPurchaseBike.imageUrl} />
+                                </Bike.Display>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Bike.Title title={lastBoughtBike.title} />
-                                <Text style={globalStyles.commonText}>(1)</Text>
-                            </View>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Bike.Title title={data?.lastPurchaseBike.title} />
+                                    <Text style={globalStyles.commonText}>({data?.lastPurchaseBike.amount})</Text>
+                                </View>
 
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Bike.Colors colors={[]} />
-                                <Bike.Price price={lastBoughtBike.price} />
-                            </View>
-                        </Bike.Root>
+                                <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+                                    <Bike.Price price={data?.lastPurchaseBike.price} />
+                                </View>
+                            </Bike.Root>
+                        )}
                     </Skeleton>
                 </View>
             </Skeleton.Group>

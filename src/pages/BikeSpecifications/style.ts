@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         backgroundColor: 'white',
+        marginBottom: 70,
     },
     imageSelectorContainer: {
         flex: 1,

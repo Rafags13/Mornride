@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { View, Text, ScrollView, FlatList } from "react-native";
+import { View, Text, ScrollView, } from "react-native";
 import {
     set
 } from 'date-fns';
@@ -9,13 +9,15 @@ import ListFilterButton from "../../components/ListFilterButton";
 import ClockSale from "../../components/ClockSale";
 import Link from "../../components/Link";
 import SaleBikesList from "../../components/SaleBikesList";
-import ImageBanner from "../../components/ImageBanner";
-
-import BikeProfiles, { images, labelsFilter } from "../../util/data/database";
 
 import { globalStyles } from "../../util/styles/global";
-import useFakeApiCallDelay from "../../hooks/useFakeApiCallDelay";
 import { Skeleton } from "moti/skeleton";
+import { getData } from "../../services/apiRequests";
+import { useQuery } from "@tanstack/react-query";
+import { HomeUserInformationsDto } from "../../util/model/dto/HomeUserInformationsDto";
+import { Banner } from "../../components/Banner";
+import { useNavigation } from "@react-navigation/native";
+import FlashSale from "../../components/FlashSale";
 
 function SkeletonHome() {
     return (
@@ -52,11 +54,15 @@ function SkeletonHome() {
 }
 
 export default function Home() {
-    const [bikes, setBikes] = useState(BikeProfiles);
-    const [filter, setFilter] = useState<string>('');
-    const { isLoading } = useFakeApiCallDelay(1000);
+    const { data, isLoading } = useQuery<HomeUserInformationsDto>({
+        queryKey: ['GetBikesSale'], queryFn: async () => {
+            const response = await getData('User');
 
-    const bikesFiltered = filter !== '' ? BikeProfiles.filter(bike => bike.categories.find(category => category === filter)) : BikeProfiles;
+            return response.data;
+        }
+    });
+
+    const { navigate } = useNavigation<any>();
 
     return (
         <ScrollView style={{ backgroundColor: 'white', padding: 10 }}>
@@ -66,23 +72,9 @@ export default function Home() {
                 </>
             ) : (
                 <>
-                    <ImageSlider images={images} />
+                    <ImageSlider images={data!.banners} />
 
-                    <ListFilterButton filters={labelsFilter} onChangeFilter={(filter) => {
-                        setFilter(filter);
-                    }} />
-
-                    <Text style={globalStyles.title}>Flash sale</Text>
-
-                    <View style={{ flexDirection: 'row', gap: 15, marginTop: 5, alignItems: 'center' }}>
-                        <Text style={{ color: 'grey', fontSize: 13, }}>End of time</Text>
-
-                        <ClockSale timePromotion={set(new Date(), { hours: 10, minutes: 0, seconds: 0 })} />
-
-                        <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
-                    </View>
-
-                    <SaleBikesList bikeCards={bikesFiltered} />
+                    <FlashSale categories={data!.categories} bikes={data!.bikes} />
 
                     <View style={{ flexDirection: 'row', gap: 15, marginVertical: 10, alignItems: 'center' }}>
                         <Text style={globalStyles.title}>Collection</Text>
@@ -90,10 +82,13 @@ export default function Home() {
                         <Link label={"See all"} onClick={() => { }} style={{ marginLeft: 'auto' }} />
                     </View>
 
-                    <ImageBanner
-                        source={require('../../../assets/mountain2.jpg')}
-                        description={'See our new stock of mountain bikes and ride it!'}
-                    />
+                    <Banner.TouchableView onClick={() => {
+                        navigate('collection', { collection: data?.banners[0].collection })
+                    }}>
+                        <Banner.View source={data!.banners[0].imageUrl} styles={{ width: '100%' }}>
+                            <Banner.Text description={data!.banners[0].description} isDivided={false} />
+                        </Banner.View>
+                    </Banner.TouchableView>
 
                     <View style={{ marginVertical: 50 }} />
                 </>
