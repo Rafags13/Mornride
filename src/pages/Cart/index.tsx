@@ -6,7 +6,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { BikeCartDto } from '../../util/model/dto/BikeCartDto';
 import { getData } from '../../services/apiRequests';
 import { useFocusEffect, useIsFocused, useNavigation } from '@react-navigation/native';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useAppDispatch } from '../../apps/hooks';
 import { addBikeIds } from '../../features/PurchaseBikes/PurchaseBikesSlide';
 
@@ -18,9 +18,16 @@ const tabSize = 60;
 export default function Cart() {
   const navigator = useNavigation<any>();
   const dispatch = useAppDispatch();
-  useFocusEffect(useCallback(() => {
-    mutate();
-  }, []));
+
+  useEffect(() => {
+    const focusListener = navigator.addListener('focus', () => {
+
+      mutate();
+    });
+    return () => {
+      navigator.removeListener('focus', focusListener);
+    };
+  }, []);
 
   const { data, isSuccess, mutate, isPending } = useMutation<BikeCartDto[]>({
     mutationFn: async () => {

@@ -5,7 +5,7 @@ import styles from './style'
 import Button from '../Button'
 import CounterButton from '../CounterButton'
 import { Snackbar } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native'
+import { CommonActions, useNavigation } from '@react-navigation/native'
 import { postData } from '../../services/apiRequests'
 import { useAppDispatch } from '../../apps/hooks'
 import { addBikeIds } from '../../features/PurchaseBikes/PurchaseBikesSlide'
@@ -44,6 +44,7 @@ export default function BuyMenu({ style, bikeId }: Props) {
 
     const onBuyNow = () => {
         dispatch(addBikeIds([bikeId]));
+
         navigator.navigate('finishPurchase', { bikeId, amount: counter });
     };
 

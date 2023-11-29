@@ -34,6 +34,7 @@ export default function SearchBike() {
 
     const getCurrentSelectSearch = useCallback((item: AutoCompleteItem) => {
         mutate(item);
+        Keyboard.dismiss();
     }, []);
 
     useEffect(() => {

@@ -21,7 +21,7 @@ export default function FinishBuy() {
   const { navigate } = useNavigation<any>();
   const [visible, setVisible] = useState(false);
   const { data, isLoading } = useQuery<BikeCartDto[] | BikeCartDto>({
-    queryKey: [ids, params.amount], queryFn: async () => {
+    queryKey: [ids, params?.amount], queryFn: async () => {
       var correctPath = params?.bikeId ? '/Bike/BuyNow' : '/Cart/ByIds';
       var correctParams = params?.bikeId ? { bikeId: params?.bikeId, amount: params?.amount } : { ids };
       const response = await getData(correctPath, correctParams);
